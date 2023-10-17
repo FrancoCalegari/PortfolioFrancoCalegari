@@ -291,7 +291,7 @@ footer {
 /* galeria */
 
 .fix-galeria {
-	background-color: #99DBF5;
+	background-color: #54bee8;
 	border-radius: 15px;
 	width: 90%;
 	margin: auto;
@@ -328,7 +328,7 @@ footer {
 	border-radius: 15px;
 	object-fit: cover;
 	object-position: center;
-	border: solid 5px #279EFF;
+	border: solid 5px #088df9;
 	transition: 800ms;
 }
 
@@ -339,4 +339,5 @@ footer {
 footer {
 	background-color: #54bee8;
 	border-radius: 15px 15px 0 0;
+	margin-top: 15px;
 }
