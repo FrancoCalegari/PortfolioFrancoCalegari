@@ -1,3 +1,11 @@
+@font-face {
+	font-family: ;
+	src: url();
+}
+
+
+
+
 * {
 	padding: 0;
 	margin: 0;
@@ -19,7 +27,7 @@
 }
 
 body {
-	background-color: #e9e9e9;
+	background-color: #FFF2D8;
 }
 
 .fix-nav {
@@ -30,8 +38,9 @@ body {
 }
 
 .Logo {
-	color: #0C356A;
+	color: #113946;
 	font-weight: 900;
+	font-size: 2em;
 	font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 	height: auto;
 	width: auto;
@@ -44,8 +53,12 @@ body {
 	padding: 8px;
 }
 
+.Logo p {
+
+}
+
 .nav-menu {
-	background-color: #54bee8;
+	background-color: #EAD7BB;
 	display: inline-block;
 	width: 100%;
 	height: auto;
@@ -68,19 +81,23 @@ nav ul li {
 }
 
 nav ul li a {
-	color: #0C356A;
+	color: #113946;
+	font-size: 1.1em;
+	font-weight: 900;
 	text-decoration: none;
-	border: solid #0C356A 3px;
+	border: solid #BCA37F 3px;
 	border-radius: 5px;
 	padding: 6px;
 	transition: 400ms;
 }
 
 nav ul li a:hover {
-	background-color: #0C356A;
-	color: #99DBF5;
+	background-color: #BCA37F;
+	color: #113946;
+	font-size: 1.1em;
+	font-weight: 900;
 	transition: 400ms;
-    font-weight: 500;
+    
 }
 
 .contenedor1 {
@@ -98,14 +115,14 @@ nav ul li a:hover {
 
 .contenedor1 h2 {
     text-align: center;
-    color: #0C356A;
+    color: #113946;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: 200;
+    font-weight: 900;
 	margin-bottom: 10px;
 }
 
 .contenedor1-text {
-    background-color: #54bee8 ;
+    background-color: #EAD7BB ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -114,7 +131,7 @@ nav ul li a:hover {
 }
 
 .contenedor1 p{
-    color: #279EFF;
+    color: #113946;
     font-weight: 400;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 	width: 100%;
@@ -145,7 +162,7 @@ footer {
 
 
 .sobremi-contenedor {
-	background-color: #54bee8 ;
+	background-color: #EAD7BB ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -156,20 +173,20 @@ footer {
 
 .sobremi-contenedor h2 {
 	text-align: center;
-    color: #0C356A;
+    color: #113946;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: 200;
+    font-weight: 900;
 	margin-bottom: 10px;
 }
 
 .sobremi-contenedor p{
-	color: #279EFF;
+	color: #113946;
 	font-weight: 100;
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .habilidades {
-	background-color: #54bee8 ;
+	background-color: #EAD7BB ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -181,16 +198,16 @@ footer {
 
 .habilidades h2 {
 	text-align: center;
-    color: #0C356A;
+    color: #113946;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: 200;
+    font-weight: 900;
 	margin-bottom: 10px;
 
 }
 
 .habilidades-ul {
 	text-align: center;
-    color: #0C356A;
+    color: #113946;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 200;
 	margin-bottom: 10px;
@@ -201,7 +218,7 @@ footer {
 }
 
 .habilidades-li:hover {
-	background-color: #54bee8;
+	background-color: #EAD7BB;
 	padding: 6px;
 	border-radius: 15px;
 	transition: 500ms;
@@ -210,7 +227,7 @@ footer {
 
 
 .habilidades-btn {
-	color: #279EFF;
+	color: #113946;
 } 
 
 .habilidades-btn:hover {
@@ -225,7 +242,7 @@ footer {
 }
 
 .proyectos {
-	background-color: #54bee8 ;
+	background-color: #EAD7BB ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -240,7 +257,7 @@ footer {
 	text-align: center;
     color: #0C356A;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: 200;
+    font-weight: 900;
 	font-size: 28px;
 	margin-bottom: 10px;
 }
@@ -291,7 +308,7 @@ footer {
 /* galeria */
 
 .fix-galeria {
-	background-color: #54bee8;
+	background-color: #EAD7BB;
 	border-radius: 15px;
 	width: 90%;
 	margin: auto;
@@ -337,7 +354,8 @@ footer {
 }
 
 footer {
-	background-color: #54bee8;
+	background-color: #EAD7BB;
 	border-radius: 15px 15px 0 0;
 	margin-top: 15px;
+	color: #113946;
 }
