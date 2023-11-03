@@ -218,7 +218,7 @@ footer {
 }
 
 .habilidades-li:hover {
-	background-color: #EAD7BB;
+	background-color: #ebc996;
 	padding: 6px;
 	border-radius: 15px;
 	transition: 500ms;
@@ -231,7 +231,7 @@ footer {
 } 
 
 .habilidades-btn:hover {
-	background-color: #0C356A;
+	background-color: #EAD7BB;
 	margin: 8px;
 	padding: 8px;
 	margin-top: 15px;
@@ -246,7 +246,7 @@ footer {
     padding: 25px;
     border-radius: 15px;
     width: 85%;
-	max-width: 690px;
+	max-width: 800px;
     margin: auto;
 	margin-bottom: 25px;
 	align-items: center;
@@ -258,36 +258,32 @@ footer {
     color: #0C356A;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 900;
-	font-size: 28px;
+	font-size: 1.8em;
 	margin-bottom: 10px;
 }
 
 .fix-proyectos {
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	display: flex;
-	flex-wrap: wrap;
-	
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* 3 columnas con igual anchura */
+	grid-gap: 10px; /* Espacio entre las imágenes */
 }
 
 .proyecto-item {
 	display: inline-block;
-	justify-content: center;
-	align-items: center;
 	margin: auto;
 	padding: 15px;
-	height: 250px;
+	width: auto;
 }
 
 .proyecto-item h3 {
 	color: #0C356A;
 	padding: 5px;
+	font-size: 1.3em;
 
 }
 
 .proyecto-item img {
-	width: 350px;
+	height: 25vh;
 	border-radius: 15px;
 	transition: all 800ms;
 }
@@ -299,7 +295,7 @@ footer {
 
 .proyectolink {
 	color: #279EFF;
-	font-size: 15px;
+	font-size: 1em;
 	display: flex;
 	text-align: center;
 	justify-content: center;

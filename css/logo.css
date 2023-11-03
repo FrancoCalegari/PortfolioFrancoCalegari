@@ -1,0 +1,33 @@
+.logo-container {
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50;
+
+}
+
+.initials {
+    text-align: center;
+    font-size: 20px;
+    display: inline-flexbox;
+    justify-content: center;
+    align-items: center;
+    color:#FFBF00 ;
+    font-family: Play;
+}
+
+.name {
+    background-color: rgb(255, 255, 255);
+    font-size: 8px;
+    border-radius: 15px;
+    top: -1.8rem;
+    left: 0rem;
+    text-align: center;
+    position: relative;
+    color:#FFBF00 ;
+    font-family: montserrat;
+    font-weight: 100;
+}
