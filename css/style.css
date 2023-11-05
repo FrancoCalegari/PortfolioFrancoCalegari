@@ -34,7 +34,7 @@ body {
 	width: 100%;
 	max-width: 80%;
 	margin: auto;
-	height: 12vh;
+	height: auto;
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
