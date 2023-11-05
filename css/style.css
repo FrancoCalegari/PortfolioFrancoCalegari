@@ -27,14 +27,17 @@
 }
 
 body {
-	background-color: #FFF2D8;
+	background-color: #eeeeee;
 }
 
 .fix-nav {
 	width: 100%;
 	max-width: 80%;
-	align-items: center;
 	margin: auto;
+	height: 12vh;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
 }
 
 .Logo {
@@ -53,12 +56,10 @@ body {
 	padding: 8px;
 }
 
-.Logo p {
 
-}
 
 .nav-menu {
-	background-color: #EAD7BB;
+	background-color: #ffffff;
 	display: inline-block;
 	width: 100%;
 	height: auto;
@@ -66,14 +67,13 @@ body {
 }
 
 nav {
-	margin: auto;
+	
 }
 
 nav ul {
 	list-style: none;
 	display: flex;
 	float: right;
-	margin-top: 1.2rem;
 }
 
 nav ul li {
@@ -82,19 +82,19 @@ nav ul li {
 
 nav ul li a {
 	color: #113946;
-	font-size: 1.1em;
+	font-size: 1rem;
 	font-weight: 900;
 	text-decoration: none;
-	border: solid #BCA37F 3px;
+	border: solid #2c2a27 3px;
 	border-radius: 5px;
 	padding: 6px;
 	transition: 400ms;
 }
 
 nav ul li a:hover {
-	background-color: #BCA37F;
-	color: #113946;
-	font-size: 1.1em;
+	background-color: #FFBF00;
+	color: #2c2a27;
+	font-size: 1rem;
 	font-weight: 900;
 	transition: 400ms;
     
@@ -122,7 +122,7 @@ nav ul li a:hover {
 }
 
 .contenedor1-text {
-    background-color: #EAD7BB ;
+    background-color: #ffffff ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -162,7 +162,7 @@ footer {
 
 
 .sobremi-contenedor {
-	background-color: #EAD7BB ;
+	background-color: #ffffff ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -186,7 +186,7 @@ footer {
 }
 
 .habilidades {
-	background-color: #EAD7BB ;
+	background-color: #ffffff ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -218,7 +218,7 @@ footer {
 }
 
 .habilidades-li:hover {
-	background-color: #ebc996;
+	background-color: #ffffff;
 	padding: 6px;
 	border-radius: 15px;
 	transition: 500ms;
@@ -231,7 +231,7 @@ footer {
 } 
 
 .habilidades-btn:hover {
-	background-color: #EAD7BB;
+	background-color: #ffffff;
 	margin: 8px;
 	padding: 8px;
 	margin-top: 15px;
@@ -242,7 +242,7 @@ footer {
 }
 
 .proyectos {
-	background-color: #EAD7BB ;
+	background-color: #ffffff ;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -278,18 +278,18 @@ footer {
 .proyecto-item h3 {
 	color: #0C356A;
 	padding: 5px;
-	font-size: 1.3em;
+	font-size: 1.3rem;
 
 }
 
 .proyecto-item img {
-	height: 25vh;
+	height: 10rem;
 	border-radius: 15px;
 	transition: all 800ms;
 }
 
 .proyecto-item img:hover {
-	border: solid 8px #279EFF ;
+	border: solid 8px #FFBF00 ;
 	transition: all 800ms;
 }
 
@@ -304,7 +304,7 @@ footer {
 /* galeria */
 
 .fix-galeria {
-	background-color: #EAD7BB;
+	background-color: #ffffff;
 	border-radius: 15px;
 	width: 90%;
 	margin: auto;
@@ -350,7 +350,7 @@ footer {
 }
 
 footer {
-	background-color: #EAD7BB;
+	background-color: #ffffff;
 	border-radius: 15px 15px 0 0;
 	margin-top: 15px;
 	color: #113946;
