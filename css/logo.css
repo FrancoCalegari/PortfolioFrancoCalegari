@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Play' ;
+    src: url('/ttf/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf');
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('/ttf/Montserrat/Montserrat-Italic-VariableFont_wght.ttf');
+}
+
+
+
 .logo-container {
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
