@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Play' ;
-    src: url('./ttf/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf');
+    src: url('/ttf/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf');
 }
 
 @font-face {
     font-family: 'montserrat';
-    src: url('./ttf/Montserrat/Montserrat-Italic-VariableFont_wght.ttf');
+    src: url('/ttf/Montserrat/Montserrat-Italic-VariableFont_wght.ttf');
 }
 
 
@@ -55,14 +55,14 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        width: 100px;
+        width: 150px;
         height: 60px;
     
     }
     
     .initials {
         text-align: center;
-        font-size: 1.4em;
+        font-size: 1.5em;
         justify-content: center;
         align-items: center;
         color:#FFBF00 ;
@@ -75,7 +75,7 @@
         background-color: rgba(255, 255, 255, 0.829);
         font-size: 0.4em;
         border-radius: 15px;
-        top: -2rem;
+        top: -2.3rem;
         left: 0rem;
         text-align: center;
         position: relative;
