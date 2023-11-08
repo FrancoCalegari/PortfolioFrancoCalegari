@@ -1,8 +1,4 @@
 
-
-
-
-
 * {
 	padding: 0;
 	margin: 0;
@@ -63,9 +59,6 @@ body {
 	border-radius: 0px 0px 15px 15px;
 }
 
-nav {
-	
-}
 
 nav ul {
 	list-style: none;
@@ -351,4 +344,128 @@ footer {
 	border-radius: 15px 15px 0 0;
 	margin-top: 15px;
 	color: #113946;
+}
+
+
+@media screen and (max-width: 600px) {
+
+	
+	.fix-nav {
+	width: 100%;
+	max-width: 80%;
+	margin: auto;
+	height: auto;
+	align-items: center;
+	display: block;
+	justify-content: center;
+	}
+
+	.nav-menu {
+		background-color: #ffffff;
+		display: inline-block;
+		width: 100%;
+		height: 7rem;
+		border-radius: 0px 0px 15px 15px;
+	}
+
+	
+	
+	nav ul {
+		list-style: none;
+		display: flex;
+		float: unset;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0.5rem;
+	}
+	
+	nav ul li {
+		margin-right: 8px;
+	}
+	
+	nav ul li a {
+		color: #113946;
+		font-size: 0.6rem;
+		font-weight: 900;
+		text-decoration: none;
+		border: solid #2c2a27 3px;
+		border-radius: 5px;
+		padding: 6px;
+		transition: 400ms;
+	}
+	
+	nav ul li a:hover {
+		background-color: #FFBF00;
+		color: #2c2a27;
+		font-size: 1rem;
+		font-weight: 900;
+		transition: 400ms;
+		
+	}
+
+	.contenedor1 img {
+		width: 80%;
+		margin: 10px;
+		border-radius: 15px;
+	}
+
+	.proyectos {
+		background-color: #ffffff ;
+		padding: 25px;
+		border-radius: 15px;
+		width: 85%;
+		max-width: 800px;
+		margin: auto;
+		margin-bottom: 25px;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.proyectos h2 {
+		text-align: center;
+		color: #0C356A;
+		font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+		font-weight: 900;
+		font-size: 1.8em;
+		margin-bottom: 10px;
+	}
+	
+	.fix-proyectos {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr); /* 3 columnas con igual anchura */
+		grid-gap: 10px; /* Espacio entre las imágenes */
+	}
+	
+	.proyecto-item {
+		display: inline-block;
+		margin: auto;
+		padding: 15px;
+		width: auto;
+	}
+	
+	.proyecto-item h3 {
+		color: #0C356A;
+		padding: 5px;
+		font-size: 1.3rem;
+	
+	}
+	
+	.proyecto-item img {
+		height: 9rem;
+		border-radius: 15px;
+		transition: all 800ms;
+	}
+	
+	.proyecto-item img:hover {
+		border: solid 8px #FFBF00 ;
+		transition: all 800ms;
+	}
+	
+	.proyectolink {
+		color: #279EFF;
+		font-size: 1em;
+		display: flex;
+		text-align: center;
+		justify-content: center;
+	}
 }
