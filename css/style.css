@@ -82,7 +82,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-	background-color: #FFBF00;
+	background-color: #ffd968;
 	color: #2c2a27;
 	font-size: 1rem;
 	font-weight: 900;
@@ -208,10 +208,15 @@ footer {
 }
 
 .habilidades-li:hover {
-	background-color: #ffffff;
+	background-color: #ffbf0056;
 	padding: 6px;
 	border-radius: 15px;
-	transition: 500ms;
+	transition: cubic-bezier(0.075, 0.82, 0.165, 1) 800ms;
+}
+
+.habilidades-li a:hover {
+	border: #22211f solid 2px;
+	transition: cubic-bezier(0.075, 0.82, 0.165, 1) 800ms;
 }
 
 
@@ -256,6 +261,7 @@ footer {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr); /* 3 columnas con igual anchura */
 	grid-gap: 10px; /* Espacio entre las imágenes */
+	text-align: center;
 }
 
 .proyecto-item {
@@ -268,7 +274,7 @@ footer {
 .proyecto-item h3 {
 	color: #0C356A;
 	padding: 5px;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 
 }
 
@@ -385,7 +391,7 @@ footer {
 	
 	nav ul li a {
 		color: #113946;
-		font-size: 0.6rem;
+		font-size: 0.8rem;
 		font-weight: 900;
 		text-decoration: none;
 		border: solid #2c2a27 3px;
@@ -395,8 +401,8 @@ footer {
 	}
 	
 	nav ul li a:hover {
-		background-color: #FFBF00;
-		color: #2c2a27;
+		background-color: none;
+		color: none;
 		font-size: 1rem;
 		font-weight: 900;
 		transition: 400ms;
