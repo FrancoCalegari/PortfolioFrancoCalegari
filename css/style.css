@@ -57,6 +57,9 @@ body {
 	width: 100%;
 	height: auto;
 	border-radius: 0px 0px 15px 15px;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 }
 
 
@@ -118,6 +121,9 @@ nav ul li a:hover {
     width: 85%;
 	max-width: 690px;
     margin: auto;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 }
 
 .contenedor1 p{
@@ -153,6 +159,9 @@ footer {
 
 .sobremi-contenedor {
 	background-color: #ffffff ;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -183,6 +192,9 @@ footer {
 	max-width: 690px;
     margin: auto;
 	margin-bottom: 25px;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 
 }
 
@@ -238,6 +250,9 @@ footer {
 
 .proyectos {
 	background-color: #ffffff ;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -301,6 +316,9 @@ footer {
 
 .fix-galeria {
 	background-color: #ffffff;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 	border-radius: 15px;
 	width: 90%;
 	margin: auto;
@@ -347,6 +365,9 @@ footer {
 
 footer {
 	background-color: #ffffff;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.2);
 	border-radius: 15px 15px 0 0;
 	margin-top: 15px;
 	color: #113946;
