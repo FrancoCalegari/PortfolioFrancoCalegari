@@ -468,4 +468,50 @@ footer {
 		text-align: center;
 		justify-content: center;
 	}
+
+	.fix-galeria {
+		background-color: #ffffff;
+		border-radius: 15px;
+		width: 90%;
+		margin: auto;
+		margin-top: 25px;
+	}
+	
+	.fix-galeria h2{
+		color: #FFBF00;
+		padding-top: 15px;
+		text-align: center;
+		font-weight: 900;
+		font-size: 30px;
+		
+	}
+	
+	
+	.galeria {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 15px;
+	}
+	
+	.imagen {
+		margin: 10px;
+		
+		
+	}
+	
+	.imagen img {
+		width: 30vw;
+		max-width: 500px;
+		height: 100%;
+		border-radius: 15px;
+		object-fit: cover;
+		object-position: center;
+		border: solid 5px #ffbf00bd;
+		transition: 800ms;
+	}
+	
+	.imagen img:hover{
+		border: solid 8px #ffd900;
+	}
 }
