@@ -67,6 +67,7 @@ nav ul {
 	list-style: none;
 	display: flex;
 	float: right;
+	flex-wrap: wrap;
 }
 
 nav ul li {
@@ -294,7 +295,7 @@ footer {
 }
 
 .proyecto-item img {
-	height: 10rem;
+	height: 8rem;
 	border-radius: 15px;
 	transition: all 800ms;
 }
@@ -501,7 +502,7 @@ footer a:hover{
 	}
 	
 	.proyecto-item img {
-		height: 9rem;
+		height:8em;
 		border-radius: 15px;
 		transition: all 800ms;
 	}
