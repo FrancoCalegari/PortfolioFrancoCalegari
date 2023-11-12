@@ -278,6 +278,15 @@ nav ul li a:hover {
 	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 }
 
+.experiencias h2 {
+	color: #0C356A;
+	text-align: center;
+}
+
+.experiencias li {
+	padding: 5px;
+}
+
 .proyectos {
 	background-color: #ffffff ;
 	border: #000000 solid 2px;
@@ -340,6 +349,27 @@ nav ul li a:hover {
 	font-size: 1em;
 	display: flex;
 	text-align: center;
+	justify-content: center;
+}
+
+.mas {
+	color: #2c2a27;
+	background-color: #eeeeee;
+	padding: 10px;
+	border-radius: 15px;
+	border: #000 solid 2px;
+	transition: cubic-bezier(0.075, 0.82, 0.165, 1) 500ms;
+}
+
+.mas:hover {
+	transform: scale(1.1);
+	transition: cubic-bezier(0.075, 0.82, 0.165, 1) 500ms;
+	background-color: #FFBF00;
+}
+
+.divmas {
+	width: 100%;
+	display: flex;
 	justify-content: center;
 }
 
@@ -466,11 +496,13 @@ footer p {
 
 footer a {
 	transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 500ms;
+	color: #000;
 }
 
 footer a:hover{
 	border: solid 2px #000;
 	border-radius: 15px;
+	transform: scale(1.1);
 	transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 500ms;
 }
 
