@@ -7,6 +7,10 @@
 	list-style-type: none;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 .fuente-clara {
 	color: #eeeeee;
 }
