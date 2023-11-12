@@ -369,12 +369,51 @@ footer {
 	border-radius: 15px;
 	object-fit: cover;
 	object-position: center;
-	border: solid 5px #088df9;
-	transition: 800ms;
+	border: solid 5px #FFBF00;
+	transition: 200ms;
 }
 
 .imagen img:hover{
-	border: solid 8px #b59a61;
+	border: solid 8px #ffd900;
+}
+
+
+/* java galery funcion*/
+.ful-img{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0,0, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+.ful-img span{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 30px;
+    color: #000000;
+    cursor: pointer;
+	background-color: #ffbf006c;
+	border: #eeeeee solid 5px;
+	padding: 10px;
+	border-radius: 15px;
+	transition: 500ms;
+}
+.ful-img span:hover{
+	transition: 500ms;
+	transform: scale(1.1);
+}
+
+.ful-img img{
+    width: 80%;
+    max-width: 500px;
+	border-radius: 15px;
 }
 
 footer {
