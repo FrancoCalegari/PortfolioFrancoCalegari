@@ -53,6 +53,7 @@ body {
 
 .nav-menu {
 	background-color: #ffffff;
+
 	display: inline-block;
 	width: 100%;
 	height: auto;
@@ -115,8 +116,11 @@ nav ul li a:hover {
 	margin-bottom: 10px;
 }
 
+
+
 .contenedor1-text {
     background-color: #ffffff ;
+	border: #000000 solid 2px;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -136,10 +140,20 @@ nav ul li a:hover {
 
 }
 
-.contenedor1 img {
-    width: 40%;
+.backperfile img {
+	width: 80%;
     margin: 10px;
-	border-radius: 15px;
+	border-radius: 100%;
+	background-color: #A79990;
+}
+
+.backperfile {
+	background-color: #020607;
+	border: #FFBF00 solid 8px;
+	width: 60%;
+	border-radius: 100%;
+	margin: auto;
+	margin-top: 10px;
 }
 
 .text {
@@ -150,16 +164,12 @@ nav ul li a:hover {
 	
 }
  
-footer {
-    width: 100%;
-	text-align: center;
-	margin: auto;
-	padding: 15px;
-}
+
 
 
 .sobremi-contenedor {
 	background-color: #ffffff ;
+	border: #000000 solid 2px;
 	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
@@ -187,6 +197,7 @@ footer {
 
 .habilidades {
 	background-color: #ffffff ;
+	border: #000000 solid 2px;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -251,6 +262,7 @@ footer {
 
 .experiencias {
 	background-color: #ffffff ;
+	border: #000000 solid 2px;
     padding: 25px;
     border-radius: 15px;
     width: 85%;
@@ -264,6 +276,7 @@ footer {
 
 .proyectos {
 	background-color: #ffffff ;
+	border: #000000 solid 2px;
 	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
 	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
@@ -433,6 +446,10 @@ footer {
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
+	width: 100%;
+	text-align: center;
+	margin: auto;
+	padding: 15px;
 }
 
 footer p {
@@ -448,7 +465,7 @@ footer a {
 }
 
 footer a:hover{
-	border: solid 2px #FFBF00;
+	border: solid 2px #000;
 	border-radius: 15px;
 	transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 500ms;
 }

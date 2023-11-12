@@ -11,14 +11,14 @@
 	<body>
 		<header class="nav-menu">
 			<div class="fix-nav">
-				<div class="logo-container">
+				<a href="./index.html"><div class="logo-container">
 					<div class="initials">
 						<h1>F C</h1>
 						<div class="name">
 							<h2>Franco Calegari</h2>
 						</div>
 					</div>
-				</div>
+				</div></a>
 				<nav>
 					<ul>
 						<li><a href="./index.html#Sobre-mi">Sobre mi</a></li>
@@ -29,22 +29,29 @@
 				</nav>
 			</div>
 		</header>
+
+		<div class="ful-img" id="fulImgBox" onclick="closeImg()">
+			<img src="./img/foto/photo_2023-11-12_10-37-39.jpg" id="fulImg" alt="">
+			<span onclick="closeImg()">X</span>
+		</div>
+
         <div class="fix-galeria">
             <h2>Edits</h2>
             <div class="galeria">
-                <div class="imagen"><img src="./img/Edits/PicsArt_03-12-11.21.29.jpg" alt="Imagen 2"></div>
-                <div class="imagen"><img src="./img/Edits/PicsArt_03-12-11.57.04.jpg" alt="Imagen 1"></div>
-                <div class="imagen"><img src="./img/Edits/PicsArt_06-10-01.43.46.jpg" alt="Imagen 3"></div>
-                <div class="imagen"><img src="./img/Edits/PicsArt_06-18-11.33.41.jpg" alt="Imagen 4"></div>
-                <div class="imagen"><img src="./img/Edits/photo_2023-09-06_17-39-43.jpg" alt="Imagen 5"></div>
-                <div class="imagen"><img src="./img/Edits/Picsart_22-03-06_12-55-08-441.jpg" alt="Imagen 6"></div>
-                <div class="imagen"><img src="./img/Edits/Picsart_22-03-06_14-12-06-909.jpg" alt="Imagen 7"></div>
-                <div class="imagen"><img src="./img/Edits/Picsart_22-05-15_21-56-49-814.jpg" alt="Imagen 8"></div>
-                <div class="imagen"><img src="./img/Edits/Picsart_23-07-15_17-43-00-628.jpg" alt="Imagen 9"></div>
-                <div class="imagen"><img src="./img/Edits/photo_2023-09-06_17-41-04.jpg" alt="Imagen 10"></div>
+                <div class="imagen"><img src="./img/Edits/PicsArt_03-12-11.21.29.jpg" onclick="openFulImg(this.src)" alt="Imagen 2"></div>
+                <div class="imagen"><img src="./img/Edits/PicsArt_03-12-11.57.04.jpg" onclick="openFulImg(this.src)" alt="Imagen 1"></div>
+                <div class="imagen"><img src="./img/Edits/PicsArt_06-10-01.43.46.jpg" onclick="openFulImg(this.src)" alt="Imagen 3"></div>
+                <div class="imagen"><img src="./img/Edits/PicsArt_06-18-11.33.41.jpg" onclick="openFulImg(this.src)" alt="Imagen 4"></div>
+                <div class="imagen"><img src="./img/Edits/photo_2023-09-06_17-39-43.jpg" onclick="openFulImg(this.src)" alt="Imagen 5"></div>
+                <div class="imagen"><img src="./img/Edits/Picsart_22-03-06_12-55-08-441.jpg" onclick="openFulImg(this.src)" alt="Imagen 6"></div>
+                <div class="imagen"><img src="./img/Edits/Picsart_22-03-06_14-12-06-909.jpg" onclick="openFulImg(this.src)" alt="Imagen 7"></div>
+                <div class="imagen"><img src="./img/Edits/Picsart_22-05-15_21-56-49-814.jpg" onclick="openFulImg(this.src)" alt="Imagen 8"></div>
+                <div class="imagen"><img src="./img/Edits/Picsart_23-07-15_17-43-00-628.jpg" onclick="openFulImg(this.src)" alt="Imagen 9"></div>
+                <div class="imagen"><img src="./img/Edits/photo_2023-09-06_17-41-04.jpg" onclick="openFulImg(this.src)" alt="Imagen 10"></div>
             </div>
         </div>
         
+		<script src="./js/gallery.js"></script>
 
 		<footer>
 			<a href="https://www.instagram.com/francocalegari_dw/" target="_blank"><img class="icon" src="./img/icon/instagram_icon.png" alt="Instagram"> <p>Instagram</p></a>
