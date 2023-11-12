@@ -337,6 +337,7 @@ footer {
 	width: 90%;
 	margin: auto;
 	margin-top: 25px;
+
 }
 
 .fix-galeria h2{
@@ -354,6 +355,8 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
 	padding: 15px;
+	width: 80%;
+	margin: auto;
 }
 
 .imagen {
@@ -363,7 +366,7 @@ footer {
 }
 
 .imagen img {
-    width: 25vw;
+    width: 22vw;
 	max-width: 500px;
 	height: 100%;
 	border-radius: 15px;
@@ -390,18 +393,19 @@ footer {
     align-items: center;
     justify-content: center;
     z-index: 99;
+	
 }
 
 .ful-img span{
     position: absolute;
     top: 5%;
     right: 5%;
-    font-size: 30px;
+    font-size: 25px;
     color: #000000;
     cursor: pointer;
 	background-color: #ffbf006c;
-	border: #eeeeee solid 5px;
-	padding: 10px;
+	border: #eeeeee solid 3px;
+	padding: 8px;
 	border-radius: 15px;
 	transition: 500ms;
 }
@@ -412,7 +416,7 @@ footer {
 
 .ful-img img{
     width: 80%;
-    max-width: 500px;
+    max-width: 28rem;
 	border-radius: 15px;
 }
 
