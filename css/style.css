@@ -520,6 +520,7 @@ footer a {
 
 footer div {
 	display: flex;
+	margin-left: 10px;
 }
 
 footer a:hover{
@@ -700,6 +701,10 @@ footer a:hover{
 
 	footer h2 {
 		font-size: 20px;
+	}
+
+	footer div {
+		margin-top: 15px;
 	}
 
 	.backperfile img {

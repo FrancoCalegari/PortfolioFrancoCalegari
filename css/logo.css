@@ -57,7 +57,7 @@
         text-align: center;
         width: 150px;
         height: 60px;
-    
+        margin-bottom:20px ;
     }
     
     .initials {
@@ -69,6 +69,7 @@
         font-family: Play;
         position: relative;
         top: 0.3em;
+        
     }
     
     .name {
