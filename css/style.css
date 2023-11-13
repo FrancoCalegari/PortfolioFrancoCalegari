@@ -303,6 +303,23 @@ nav ul li a:hover {
 	justify-content: center;
 }
 
+.proyecto-web {
+	background-color: #ffffff ;
+	border: #000000 solid 2px;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+    padding: 25px;
+    border-radius: 15px;
+    width: 85%;
+	max-width: 800px;
+    margin: auto;
+	margin-top: 50px;
+	margin-bottom: 25px;
+	align-items: center;
+	justify-content: center;
+}
+
 .proyectos h2 {
 	text-align: center;
     color: #0C356A;
@@ -486,6 +503,8 @@ footer {
 	padding: 15px;
 }
 
+
+
 footer p {
 	padding: 5px;
 }
@@ -497,6 +516,10 @@ footer p {
 footer a {
 	transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 500ms;
 	color: #000;
+}
+
+footer div {
+	display: flex;
 }
 
 footer a:hover{
@@ -673,5 +696,25 @@ footer a:hover{
 	
 	.imagen img:hover{
 		border: solid 8px #ffd900;
+	}
+
+	footer h2 {
+		font-size: 20px;
+	}
+
+	.backperfile img {
+		width: 80%;
+		margin: 10px;
+		border-radius: 100%;
+		background-color: #A79990;
+	}
+	
+	.backperfile {
+		background-color: #020607;
+		border: #FFBF00 solid 8px;
+		width: 100%;
+		border-radius: 100%;
+		margin: auto;
+		margin-top: 10px;
 	}
 }
