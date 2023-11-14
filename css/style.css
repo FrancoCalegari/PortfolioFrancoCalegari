@@ -484,6 +484,42 @@ nav ul li a:hover {
 	border-radius: 15px;
 }
 
+/* Servicios*/
+
+.services-section {
+	background-color: #ffffff ;
+	border: #000000 solid 2px;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+    padding: 25px;
+    border-radius: 15px;
+    width: 85%;
+	max-width: 800px;
+    margin: auto;
+	margin-bottom: 25px;
+	margin-top: 50px;
+	align-items: center;
+	justify-content: center;
+}
+
+.service {
+    margin-bottom: 30px;
+}
+
+.service h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.service p {
+    font-size: 16px;
+    color: #666;
+}
+
+
+
+
 footer {
 	background-color: #ffffff;
 	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.2);
