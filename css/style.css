@@ -508,17 +508,36 @@ nav ul li a:hover {
 }
 
 .service h2 {
-    font-size: 24px;
+    font-size: 2rem;
+	display: inline;
     color: #333;
+	margin: auto;
 }
 
 .service p {
-    font-size: 16px;
+    font-size: 1.2rem;
     color: #666;
+	padding: 3px;
+	width: 50%;
+	min-width: 200px;
 }
 
+.service-div {
+	display: flex;
+    flex-direction: row;
+	flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+	margin: auto;
+	padding: 20px;
 
+}
 
+.service-div img {
+	border-radius: 15px;
+	flex-wrap:wrap;
+	height: 12rem;
+}
 
 footer {
 	background-color: #ffffff;
