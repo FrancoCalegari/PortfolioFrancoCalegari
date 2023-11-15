@@ -760,6 +760,7 @@ footer a:hover{
 
 	footer div {
 		margin-top: 15px;
+		flex-wrap: wrap;
 	}
 
 	.backperfile img {
@@ -776,5 +777,9 @@ footer a:hover{
 		border-radius: 100%;
 		margin: auto;
 		margin-top: 10px;
+	}
+
+	.icon {
+		height: 1.5rem;
 	}
 }
