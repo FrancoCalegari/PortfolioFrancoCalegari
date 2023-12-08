@@ -783,4 +783,60 @@ footer a:hover{
 	.icon {
 		height: 1.5rem;
 	}
+
+	* Servicios*/
+
+.services-section {
+	background-color: #ffffff ;
+	border: #000000 solid 2px;
+	box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+    padding: 25px;
+    border-radius: 15px;
+    width: 85%;
+	max-width: 800px;
+    margin: auto;
+	margin-bottom: 25px;
+	margin-top: 50px;
+	align-items: center;
+	justify-content: center;
+}
+
+.service {
+    margin-bottom: 30px;
+}
+
+.service h2 {
+    font-size: 2rem;
+	display: inline;
+    color: #333;
+	margin: auto;
+	text-align: center;
+}
+
+.service p {
+    font-size: 1.2rem;
+    color: #666;
+	padding: 3px;
+	width: 50%;
+	min-width: 200px;
+	padding-bottom: 2rem;
+}
+
+.service-div {
+	display: flex;
+    flex-direction: row;
+	flex-wrap: wrap;
+    justify-content: center;
+	margin: auto;
+	padding: 20px;
+
+}
+
+.service-div img {
+	border-radius: 15px;
+	flex-wrap:wrap;
+	height: 10.5rem;
+}
 }
