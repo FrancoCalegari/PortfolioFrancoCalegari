@@ -374,10 +374,10 @@ nav ul li a:hover {
 
 .mas {
 	color: #2c2a27;
-	background-color: #eeeeee;
+	background-color: #fff;
 	padding: 10px;
 	border-radius: 15px;
-	border: #000 solid 2px;
+	border: #000 solid 3px;
 	transition: cubic-bezier(0.075, 0.82, 0.165, 1) 500ms;
 }
 
@@ -391,6 +391,7 @@ nav ul li a:hover {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	background-color: ;
 }
 
 /* galeria */
@@ -540,6 +541,65 @@ nav ul li a:hover {
 	border-radius: 15px;
 	flex-wrap:wrap;
 	height: 12rem;
+}
+
+/* Add the following code for the "Contactarme" section */
+
+#contactarme {
+    background-color: #ffffff;
+    border: #000000 solid 2px;
+    box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 1px 6px 28px 0px rgba(0,0,0,0.3);
+    padding: 25px;
+    border-radius: 15px;
+    width: 85%;
+    max-width: 690px;
+    margin: auto;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#contactarme h2 {
+    color: #0C356A;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.contact-form {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #113946;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #2c2a27;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    background-color: #FFBF00;
+    color: #2c2a27;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #ffd900;
 }
 
 footer {
