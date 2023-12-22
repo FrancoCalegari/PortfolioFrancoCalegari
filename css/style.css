@@ -120,6 +120,7 @@ nav ul li a:hover {
     color: #0C356A;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 900;
+	font-size: 1.8rem;
 	margin-bottom: 10px;
 }
 
@@ -219,10 +220,11 @@ nav ul li a:hover {
 
 .habilidades h2 {
 	text-align: center;
-    color: #113946;
+    color: #0C356A;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 900;
 	margin-bottom: 10px;
+	font-size: 1.8rem;
 
 }
 
@@ -284,6 +286,7 @@ nav ul li a:hover {
 .experiencias h2 {
 	color: #0C356A;
 	text-align: center;
+	font-size: 1.8rem;
 }
 
 .experiencias li {
@@ -306,6 +309,16 @@ nav ul li a:hover {
 	justify-content: center;
 }
 
+.proyectos h2 {
+	text-align: center;
+    color: #0C356A;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 900;
+	font-size: 1.8em;
+	margin-bottom: 10px;
+}
+
+
 .proyecto-web {
 	background-color: #ffffff ;
 	border: #000000 solid 2px;
@@ -322,6 +335,17 @@ nav ul li a:hover {
 	align-items: center;
 	justify-content: center;
 }
+
+.proyecto-web h2{
+	text-align: center;
+    color: #0C356A;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 900;
+	font-size: 1.8em;
+	margin-bottom: 10px;
+}
+}
+
 
 .proyectos h2 {
 	text-align: center;
