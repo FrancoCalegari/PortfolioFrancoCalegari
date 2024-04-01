@@ -578,6 +578,26 @@ nav ul li a:hover {
 	height: 12rem;
 }
 
+.service-div2 {
+	display: flex;
+    flex-direction: row;
+	flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+	margin: auto;
+	padding: 20px;
+}
+
+.service-div2 div {
+	display: flex;
+}
+
+.service-div-img-item{
+	border-radius: 15px;
+	flex-wrap:wrap;
+	
+}
+
 /* Add the following code for the "Contactarme" section */
 
 #contactarme {
@@ -945,3 +965,4 @@ footer a:hover{
 	height: 10.5rem;
 }
 }
+
