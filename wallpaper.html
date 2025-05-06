@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transición Correlativa de HSL</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .demo {
+      background: radial-gradient(
+        farthest-side ellipse at 10% 0,
+        hsl(300, 100%, 95%),
+        hsl(190, 50%, 70%) 80%,
+        hsl(226, 40%, 60%) 120%
+      );
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      transition: background 500ms ease-in-out;
+      pointer-events: none;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin: 2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo"></div>
+  <p>El fondo cambia dinámicamente y vuelve al estado inicial tras alcanzar el objetivo.</p>
+
+  <script>
+    const demoElement = document.querySelector('.demo');
+
+    // Gradiente inicial
+    const initialGradient = {
+      colors: [
+        { hue: 300, saturation: 100, lightness: 95 },
+        { hue: 190, saturation: 50, lightness: 70 },
+        { hue: 226, saturation: 40, lightness: 60 }
+      ],
+      css: `radial-gradient(
+        farthest-side ellipse at 10% 0,
+        hsl(300, 100%, 95%),
+        hsl(190, 50%, 70%) 80%,
+        hsl(226, 40%, 60%) 120%
+      )`
+    };
+
+    // Gradiente objetivo
+    const targetGradient = {
+      colors: [
+        { hue: 220, saturation: 100, lightness: 95 },
+        { hue: 210, saturation: 80, lightness: 85 },
+        { hue: 200, saturation: 60, lightness: 75 }
+      ],
+      css: `radial-gradient(
+        farthest-side ellipse at 10% 0,
+        rgb(228, 238, 255),
+        rgb(230, 238, 254) 80%,
+        rgb(195, 215, 250) 120%
+      )`
+    };
+
+    let colors = [...initialGradient.colors];
+    let direction = 1; // 1 para avanzar hacia el objetivo, -1 para volver al inicio
+
+    function adjustValue(value, step, target, reverse = false) {
+      if (reverse) step = -step;
+      if ((direction === 1 && value >= target) || (direction === -1 && value <= target)) {
+        return target;
+      }
+      return value + step;
+    }
+
+    function updateGradient() {
+      // Actualizar cada color según la dirección
+      colors = colors.map((color, index) => ({
+        hue: adjustValue(
+          color.hue,
+          1,
+          direction === 1 ? targetGradient.colors[index].hue : initialGradient.colors[index].hue,
+          direction === -1
+        ),
+        saturation: adjustValue(
+          color.saturation,
+          0.5,
+          direction === 1 ? targetGradient.colors[index].saturation : initialGradient.colors[index].saturation,
+          direction === -1
+        ),
+        lightness: adjustValue(
+          color.lightness,
+          0.3,
+          direction === 1 ? targetGradient.colors[index].lightness : initialGradient.colors[index].lightness,
+          direction === -1
+        )
+      }));
+
+      // Crear gradiente dinámico
+      const newGradient = `radial-gradient(
+        farthest-side ellipse at 10% 0,
+        hsl(${colors[0].hue}, ${colors[0].saturation}%, ${colors[0].lightness}%),
+        hsl(${colors[1].hue}, ${colors[1].saturation}%, ${colors[1].lightness}%) 80%,
+        hsl(${colors[2].hue}, ${colors[2].saturation}%, ${colors[2].lightness}%) 120%
+      )`;
+
+      demoElement.style.background = newGradient;
+
+      // Detectar si el gradiente alcanzó el objetivo o volvió al inicial
+      if (newGradient === targetGradient.css && direction === 1) {
+        direction = -1; // Cambiar dirección a volver
+      } else if (newGradient === initialGradient.css && direction === -1) {
+        direction = 1; // Cambiar dirección a avanzar
+      }
+    }
+
+    // Actualizar el gradiente cada 500ms
+    setInterval(updateGradient, 100);
+  </script>
+</body>
+</html>

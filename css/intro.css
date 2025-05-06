@@ -21,8 +21,9 @@ html {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    z-index: 1;
-    background-color: white;
+    z-index: 12;
+    background: linear-gradient(180deg, #ffe38f, #ffe38f 20%, #fff 60%);
+	background-size: 200% 200%;
     transition: 1s;
 }
 
