@@ -125,6 +125,32 @@ header nav ul li a:hover {
 	
 }
 
+.download-cv-btn {
+	display: inline-block;
+	background: linear-gradient(120deg, transparent, #ffe38f90);
+	background-size: 400%;
+	background-position: left;
+	color: var(--secondary-color);
+	font-weight: bold;
+	font-size: 1.1rem;
+	padding: 0.8rem 2.2rem;
+	border-radius: var(--border-radius);
+	box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+	transition: background-position 600ms ease-in-out, transform 600ms ease-in-out, box-shadow 600ms ease-in-out;
+	text-decoration: none;
+
+	margin: 1rem 0;
+}
+
+.download-cv-btn:hover {
+	border: 1px solid black;
+	background-position: right;
+	color: var(--secondary-color);
+	transform: scale(1.07);
+	box-shadow: 0 6px 12px rgba(255, 190, 0, 0.15);
+}
+
+
 @keyframes extravagantBackground {
 	0% {
 		background-position: 100% 50%;
@@ -281,22 +307,60 @@ main .skills div {
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 20px;
+	z-index: 1;
 }
 
 main .skills div > div {
-	background-color: var(--background-light);
+	position: relative; /* necesario para posicionar el pseudo-elemento */
+	background-color: rgba(255, 255, 255, 0.08); /* fondo semitransparente */
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
 	color: var(--secondary-color);
 	padding: 20px;
 	border-radius: var(--border-radius);
 	text-align: center;
 	width: 300px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s ease;
+	transition: transform 0.3s ease, border 0.3s ease;
+	z-index: 2;
+}
+
+/* Glow dorado detrás */
+main .skills div > div::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 180%;
+	height: 180%;
+	background: radial-gradient(circle, rgba(255, 191, 0, 0.3) 0%, transparent 75%);
+	filter: blur(20px);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 0; /* detrás del contenido */
+	border-radius: inherit;
+}
+
+/* Hover con iluminación */
+main .skills div > div:hover::before {
+	opacity: 1;
+	z-index: -2;
 }
 
 main .skills div > div:hover {
 	transform: translateY(-10px);
+	cursor: pointer;
+	box-shadow: 0 8px 20px rgba(255, 191, 0, 0.35); /* efecto de iluminación dorada */
 }
+
+
+/* Asegurar que el contenido esté sobre el glow */
+main .skills div > div > * {
+	position: relative;
+	z-index: 1;
+}
+
+
 
 main .skills div > div i {
 	font-size: 2rem;
