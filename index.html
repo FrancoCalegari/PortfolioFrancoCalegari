@@ -109,68 +109,14 @@
 			
 			<section class="projects">
 				<h2>Proyectos destacados</h2>
-				<div>
-					<a href="https://francocalegari.github.io/SpiderWebTest/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="https://github.com/FrancoCalegari/SpiderWebTest/blob/main/assets/img/recurses/logos/SpiderLogo.jpg?raw=true" alt="SpiderWeb photo">
-							<h3 class="proyectAppContainerName">Spider Web Programing</h3>
-						</div>
-						<p>Landing Page sobre venta de servicios digitales.</p>
-					</div></a>
-					<a href="https://francocalegari.github.io/GianninoRtkMercadopago/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="https://yt3.googleusercontent.com/4AdFbS5Mm2Qdj0BC70IuQQpabgkZSoJDmYnJcETiaC_Uauv1Vz-mwjymvL6R0WDRvotHXoT4xQ=s160-c-k-c0x00ffffff-no-rj" alt="Web web-abogacia">
-							<h3 class="proyectAppContainerName" style="padding: 8px 12px;">Yanino Web</h3>
-						</div>
-						<p>Yanino landing page sobre beatmaker.</p>
-					</div></a>
-					<a href="https://francocalegari.github.io/CalcDes/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="https://raw.githubusercontent.com/FrancoCalegari/CalcDes/refs/heads/main/icons/Logo.png" alt="CalcDes web photo">
-							<h3 class="proyectAppContainerName">CalcDes</h3>
-						</div>
-						<p>Una PWA sencila para calcular descuentos.</p>
-					</div></a>
-					
-					<a href="https://francocalegari.github.io/Law-Portal/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="https://github.com/FrancoCalegari/Law-Portal/blob/main/assets/img/Logo.png?raw=true" alt="LawPortal photo">
-							<h3 class="proyectAppContainerName">LawPortal</h3>
-						</div>
-						<p>PWA para abogados donde pueden encontrar las webs de las leyes rapidamente.</p>
-					</div></a>
-					<a href="https://francocalegari.github.io/PomoLofi/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="./img/logo pomolofi.png" alt="PomoLofi photo">
-							<h3 class="proyectAppContainerName">Pomo Lofi</h3>
-						</div>
-						<p>Es una web app tipo pomodoro configurable para que puedas relajarte y estudiar</p>
-					</div></a>
-					<a href="https://burger-point-test.vercel.app/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="./img/logowebs/LogoBurger.png" alt="BurgerPointTest">
-							<h3 class="proyectAppContainerName">Demo Burguers</h3>
-						</div>
-						<p>Demo de una web para hamburguesas.</p>
-					</div></a>
-					<a href="https://supertec-web.vercel.app/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="https://supertec-web.vercel.app/assets/img/logo.png" alt="SuperTec photo">
-							<h3 class="proyectAppContainerName">Super-Tec Web</h3>
-						</div>
-						<p>Landing Page de el serivicio tecnico Super-Tec.</p>
-					</div></a>
-					<a href="https://turnos-pantalla.vercel.app/" target="_blank"><div class="proyectAppContainer">
-						<div>
-							<img src="https://github.com/FrancoCalegari/TurnosPantalla/blob/main/public/assets/img/logowebs.png?raw=true" alt="TsukiOdiseyObjets photo">
-							<h3 class="proyectAppContainerName">Pantalla de Turnos Demo</h3>
-						</div>
-						<p>Web de una pantalla de turnos demo.</p>
-					</div></a>
-					
+				<div id="featuredProjectsContainer">
+					<!-- Los proyectos destacados se cargarán aquí desde projects.json -->
 				</div>
 				<a href="./proyectos.html" class="proyectsButtomMore">Ver Mas</a>
 			</section>
+
+
+
 		</main>
 			
 		<footer id="contacto">
@@ -186,7 +132,8 @@
 		</footer>
 
 		<script src="https://kit.fontawesome.com/274f77f0e3.js" crossorigin="anonymous"></script>
-		
+		<!-- Vincular el script -->
+		<script src="./js/loadFeaturedProjects.js"></script>
 		<script src="./js/intro.js"></script>
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-5YDLEQEMD4"></script>

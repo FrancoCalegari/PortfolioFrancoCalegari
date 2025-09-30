@@ -462,8 +462,8 @@ main .projects .proyectAppContainer:hover {
 main .projects .proyectAppContainer img {
 	width: 100%;
 	height: 100%;
-	object-fit: fit;
 	transition: opacity 0.3s ease;
+	position: absolute;
 }
 
 main .projects .proyectAppContainer h3 {
