@@ -1,7 +1,7 @@
 import json
 import os
 import tkinter as tk
-from tkinter import messagebox, simpledialog, filedialog
+from tkinter import messagebox, filedialog
 from tkinter import ttk
 
 JSON_FILE = None  # Se definirá al importar un JSON
@@ -28,51 +28,115 @@ def save_projects(projects):
         json.dump({"projects": projects}, f, indent=4, ensure_ascii=False)
 
 # ========================
-# CRUD
+# Formularios (Agregar / Editar)
+# ========================
+def open_form(mode="add"):
+    """Abre una ventana para agregar o editar proyecto."""
+    selected_index = None
+    data = {
+        "name": "",
+        "description": "",
+        "url": "",
+        "image": "",
+        "alt": "",
+        "destacado": 0
+    }
+
+    if mode == "edit":
+        selected_item = tree.selection()
+        if not selected_item:
+            messagebox.showwarning("Selecciona un proyecto", "Debes seleccionar un proyecto para editar.")
+            return
+        selected_index = int(tree.item(selected_item)["text"])
+        projects = load_projects()
+        data = projects[selected_index]
+
+    form = tk.Toplevel(root)
+    form.title("Formulario de Proyecto")
+    form.geometry("400x420")
+    form.resizable(False, False)
+
+    # Campos
+    tk.Label(form, text="Nombre:").pack(anchor="w", padx=10, pady=2)
+    entry_name = tk.Entry(form, width=50)
+    entry_name.insert(0, data["name"])
+    entry_name.pack(padx=10, pady=2)
+
+    tk.Label(form, text="Descripción:").pack(anchor="w", padx=10, pady=2)
+    entry_desc = tk.Text(form, width=50, height=4)
+    entry_desc.insert("1.0", data["description"])
+    entry_desc.pack(padx=10, pady=2)
+
+    tk.Label(form, text="URL del Proyecto:").pack(anchor="w", padx=10, pady=2)
+    entry_url = tk.Entry(form, width=50)
+    entry_url.insert(0, data["url"])
+    entry_url.pack(padx=10, pady=2)
+
+    tk.Label(form, text="Imagen (path o URL):").pack(anchor="w", padx=10, pady=2)
+    entry_img = tk.Entry(form, width=50)
+    entry_img.insert(0, data["image"])
+    entry_img.pack(padx=10, pady=2)
+
+    tk.Label(form, text="Texto alternativo (alt):").pack(anchor="w", padx=10, pady=2)
+    entry_alt = tk.Entry(form, width=50)
+    entry_alt.insert(0, data["alt"])
+    entry_alt.pack(padx=10, pady=2)
+
+    destacado_var = tk.IntVar(value=data["destacado"])
+    tk.Checkbutton(form, text="¿Proyecto destacado?", variable=destacado_var).pack(anchor="w", padx=10, pady=5)
+
+    # Guardar cambios
+    def save():
+        name = entry_name.get().strip()
+        description = entry_desc.get("1.0", "end").strip()
+        url = entry_url.get().strip()
+        image = entry_img.get().strip()
+        alt = entry_alt.get().strip()
+        destacado = destacado_var.get()
+
+        if not name:
+            messagebox.showerror("Error", "El campo 'Nombre' es obligatorio.")
+            return
+
+        projects = load_projects()
+
+        if mode == "add":
+            projects.append({
+                "name": name,
+                "description": description,
+                "url": url,
+                "image": image,
+                "alt": alt,
+                "destacado": destacado
+            })
+            save_projects(projects)
+            messagebox.showinfo("Éxito", f"Proyecto '{name}' agregado correctamente.")
+        else:
+            projects[selected_index] = {
+                "name": name,
+                "description": description,
+                "url": url,
+                "image": image,
+                "alt": alt,
+                "destacado": destacado
+            }
+            save_projects(projects)
+            messagebox.showinfo("Éxito", f"Proyecto '{name}' actualizado correctamente.")
+
+        refresh_treeview()
+        form.destroy()
+
+    tk.Button(form, text="Guardar", width=15, bg="#4CAF50", fg="white", command=save).pack(pady=15)
+    tk.Button(form, text="Cancelar", width=15, command=form.destroy).pack()
+
+# ========================
+# CRUD básicos
 # ========================
 def add_project():
-    projects = load_projects()
-    name = simpledialog.askstring("Nuevo Proyecto", "Nombre del proyecto:")
-    if not name:
-        return
-    description = simpledialog.askstring("Nuevo Proyecto", "Descripción:")
-    url = simpledialog.askstring("Nuevo Proyecto", "URL del proyecto:")
-    image = simpledialog.askstring("Nuevo Proyecto", "URL o path de imagen:")
-    alt = simpledialog.askstring("Nuevo Proyecto", "Texto alternativo de la imagen:")
-    destacado = messagebox.askyesno("Nuevo Proyecto", "¿Es destacado?")
-
-    projects.append({
-        "name": name,
-        "description": description,
-        "url": url,
-        "image": image,
-        "alt": alt,
-        "destacado": 1 if destacado else 0
-    })
-    save_projects(projects)
-    refresh_treeview()
-    messagebox.showinfo("Éxito", f"Proyecto '{name}' agregado correctamente.")
+    open_form("add")
 
 def update_project():
-    selected_item = tree.selection()
-    if not selected_item:
-        messagebox.showwarning("Selecciona un proyecto", "Debes seleccionar un proyecto para actualizar.")
-        return
-    index = int(tree.item(selected_item)["text"])
-    projects = load_projects()
-    project = projects[index]
-
-    project["name"] = simpledialog.askstring("Actualizar Proyecto", "Nombre:", initialvalue=project["name"])
-    project["description"] = simpledialog.askstring("Actualizar Proyecto", "Descripción:", initialvalue=project["description"])
-    project["url"] = simpledialog.askstring("Actualizar Proyecto", "URL:", initialvalue=project["url"])
-    project["image"] = simpledialog.askstring("Actualizar Proyecto", "URL o path de imagen:", initialvalue=project["image"])
-    project["alt"] = simpledialog.askstring("Actualizar Proyecto", "Texto alternativo:", initialvalue=project["alt"])
-    project["destacado"] = 1 if messagebox.askyesno("Actualizar Proyecto", "¿Es destacado?") else 0
-
-    projects[index] = project
-    save_projects(projects)
-    refresh_treeview()
-    messagebox.showinfo("Éxito", f"Proyecto '{project['name']}' actualizado.")
+    open_form("edit")
 
 def delete_project():
     selected_item = tree.selection()
@@ -99,7 +163,7 @@ def import_json():
     messagebox.showinfo("Importado", f"Archivo JSON cargado:\n{JSON_FILE}")
 
 # ========================
-# Interfaz Gráfica
+# Interfaz principal
 # ========================
 def refresh_treeview():
     for item in tree.get_children():
@@ -119,7 +183,6 @@ root = tk.Tk()
 root.title("Gestión de Proyectos")
 root.geometry("950x500")
 
-# Botones CRUD + Importar
 btn_frame = tk.Frame(root)
 btn_frame.pack(pady=10)
 
@@ -128,7 +191,6 @@ tk.Button(btn_frame, text="Agregar Proyecto", command=add_project, width=20).pac
 tk.Button(btn_frame, text="Actualizar Proyecto", command=update_project, width=20).pack(side="left", padx=5)
 tk.Button(btn_frame, text="Eliminar Proyecto", command=delete_project, width=20).pack(side="left", padx=5)
 
-# Tabla de proyectos
 columns = ("Nombre", "Descripción", "URL", "Imagen", "Alt", "Destacado")
 tree = ttk.Treeview(root, columns=columns, show="headings")
 for col in columns:

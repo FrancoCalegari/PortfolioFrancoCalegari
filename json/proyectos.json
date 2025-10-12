@@ -1,115 +1,131 @@
 {
-  "projects": [
-    {
-      "name": "Spider Web Programing",
-      "description": "Landing Page sobre venta de servicios digitales.",
-      "image": "https://github.com/FrancoCalegari/SpiderWebTest/blob/main/assets/img/recurses/logos/SpiderLogo.jpg?raw=true",
-      "url": "https://francocalegari.github.io/SpiderWebTest/",
-      "alt": "SpiderWeb photo",
-      "destacado": 1
-    },
-    {
-      "name": "Yanino Web",
-      "description": "Yanino landing page sobre beatmaker.",
-      "image": "https://yt3.googleusercontent.com/4AdFbS5Mm2Qdj0BC70IuQQpabgkZSoJDmYnJcETiaC_Uauv1Vz-mwjymvL6R0WDRvotHXoT4xQ=s160-c-k-c0x00ffffff-no-rj",
-      "url": "https://francocalegari.github.io/GianninoRtkMercadopago/",
-      "alt": "Web Yanino",
-      "destacado": 1
-    },
-    {
-      "name": "CalcDes",
-      "description": "Una PWA sencila para calcular descuentos.",
-      "image": "https://raw.githubusercontent.com/FrancoCalegari/CalcDes/refs/heads/main/icons/Logo.png",
-      "url": "https://francocalegari.github.io/CalcDes/",
-      "alt": "CalcDes web photo"
-    },
-    {
-      "name": "LawPortal",
-      "description": "PWA para abogados donde pueden encontrar las webs de las leyes rapidamente.",
-      "image": "https://github.com/FrancoCalegari/Law-Portal/blob/main/assets/img/Logo.png?raw=true",
-      "url": "https://francocalegari.github.io/Law-Portal/",
-      "alt": "LawPortal photo",
-      "destacado": 1
-    },
-    {
-      "name": "Pomo Lofi",
-      "description": "Es una web app tipo pomodoro configurable para que puedas relajarte y estudiar",
-      "image": "./img/logo pomolofi.png",
-      "url": "https://francocalegari.github.io/PomoLofi/",
-      "alt": "PomoLofi photo"
-    },
-    {
-      "name": "Demo Burguers",
-      "description": "Demo de una web para hamburguesas.",
-      "image": "./img/logowebs/LogoBurger.png",
-      "url": "https://burger-point-test.vercel.app/",
-      "alt": "BurgerPointTest",
-      "destacado": 1
-    },
-    {
-      "name": "Super-Tec Web",
-      "description": "Landing Page de el serivicio tecnico Super-Tec.",
-      "image": "https://supertec-web.vercel.app/assets/img/logo.png",
-      "url": "https://supertec-web.vercel.app/",
-      "alt": "SuperTec photo",
-      "destacado": 1
-    },
-    {
-      "name": "Pantalla de Turnos Demo",
-      "description": "Web de una pantalla de turnos demo.",
-      "image": "https://github.com/FrancoCalegari/TurnosPantalla/blob/main/public/assets/img/logowebs.png?raw=true",
-      "url": "https://turnos-pantalla.vercel.app/",
-      "alt": "TsukiOdiseyObjets photo",
-      "destacado": 1
-    },
-    {
-      "name": "Tsuki Odisey Objets",
-      "description": "Proyecto web de muestra con diferentes objetos interactivos.",
-      "image": "./img/webspre/Macbook-Air-francocalegari.github.io.png",
-      "url": "https://francocalegari.github.io/TsukiOdiseyObjets/",
-      "alt": "Tsuki Odisey Objets"
-    },
-    {
-      "name": "Redmi 9 - Tribute",
-      "description": "Tributo web al Redmi 9.",
-      "image": "./img/webspre/Macbook-Air-francocalegari.github.io Redmi9Tribute.png",
-      "url": "https://francocalegari.github.io/Redmi9-testweb/",
-      "alt": "Redmi 9 Tribute"
-    },
-    {
-      "name": "Autos",
-      "description": "Web de autos de prueba tipo Racing.",
-      "image": "./img/webspre/Rapidos y Furiosos Racing - Google Chrome 6_9_2023 12_07_04.png",
-      "url": "https://francocalegari.github.io/autotest/",
-      "alt": "Autos"
-    },
-    {
-      "name": "Web de peliculas",
-      "description": "Sitio web de películas tipo streaming demo.",
-      "image": "./img/webspre/Dino Movie - Google Chrome 6_9_2023 11_59_49.png",
-      "url": "https://francocalegari.github.io/DinoSream/",
-      "alt": "Web de peliculas"
-    },
-    {
-      "name": "Hamburguesas",
-      "description": "Web demo de hamburguesas con menú interactivo.",
-      "image": "./img/webspre/Hamburguesas - Google Chrome 6_9_2023 12_02_19.png",
-      "url": "https://francocalegari.github.io/Hamburguesas/",
-      "alt": "Hamburguesas"
-    },
-    {
-      "name": "Test de pagina de peluqueria",
-      "description": "Página de prueba de peluquería.",
-      "image": "./img/webspre/Peluquería XYZ - Google Chrome 6_9_2023 12_08_13.png",
-      "url": "#",
-      "alt": "Test de peluqueria"
-    },
-    {
-      "name": "Documentacion JavaScript",
-      "description": "Documentación de JavaScript de ejemplo.",
-      "image": "./img/icon/nophoto.jpg",
-      "url": "https://francocalegari.github.io/CursoJavaScriptFrancoCalegari/",
-      "alt": "Documentacion JavaScript"
-    }
-  ]
+    "projects": [
+        {
+            "name": "Spider Web Programing",
+            "description": "Landing Page sobre venta de servicios digitales.",
+            "image": "https://github.com/FrancoCalegari/SpiderWebTest/blob/main/assets/img/recurses/logos/SpiderLogo.jpg?raw=true",
+            "url": "https://francocalegari.github.io/SpiderWebTest/",
+            "alt": "SpiderWeb photo",
+            "destacado": 1
+        },
+        {
+            "name": "Yanino Web",
+            "description": "Yanino landing page sobre beatmaker.",
+            "image": "https://yt3.googleusercontent.com/4AdFbS5Mm2Qdj0BC70IuQQpabgkZSoJDmYnJcETiaC_Uauv1Vz-mwjymvL6R0WDRvotHXoT4xQ=s160-c-k-c0x00ffffff-no-rj",
+            "url": "https://francocalegari.github.io/GianninoRtkMercadopago/",
+            "alt": "Web Yanino",
+            "destacado": 1
+        },
+        {
+            "name": "CalcDes",
+            "description": "Una PWA sencila para calcular descuentos.",
+            "image": "https://raw.githubusercontent.com/FrancoCalegari/CalcDes/refs/heads/main/icons/Logo.png",
+            "url": "https://francocalegari.github.io/CalcDes/",
+            "alt": "CalcDes web photo"
+        },
+        {
+            "name": "LawPortal",
+            "description": "PWA para abogados donde pueden encontrar las webs de las leyes rapidamente.",
+            "image": "https://github.com/FrancoCalegari/Law-Portal/blob/main/assets/img/Logo.png?raw=true",
+            "url": "https://francocalegari.github.io/Law-Portal/",
+            "alt": "LawPortal photo",
+            "destacado": 1
+        },
+        {
+            "name": "Pomo Lofi",
+            "description": "Es una web app tipo pomodoro configurable para que puedas relajarte y estudiar",
+            "image": "./img/logo pomolofi.png",
+            "url": "https://francocalegari.github.io/PomoLofi/",
+            "alt": "PomoLofi photo"
+        },
+        {
+            "name": "Demo Burguers",
+            "description": "Demo de una web para hamburguesas.",
+            "image": "./img/logowebs/LogoBurger.png",
+            "url": "https://burger-point-test.vercel.app/",
+            "alt": "BurgerPointTest",
+            "destacado": 1
+        },
+        {
+            "name": "Super-Tec Web",
+            "description": "Landing Page de el serivicio tecnico Super-Tec.",
+            "image": "https://supertec-web.vercel.app/assets/img/logo.png",
+            "url": "https://supertec-web.vercel.app/",
+            "alt": "SuperTec photo",
+            "destacado": 1
+        },
+        {
+            "name": "Pantalla de Turnos Demo",
+            "description": "Web de una pantalla de turnos demo.",
+            "image": "https://github.com/FrancoCalegari/TurnosPantalla/blob/main/public/assets/img/logowebs.png?raw=true",
+            "url": "https://turnos-pantalla.vercel.app/",
+            "alt": "TsukiOdiseyObjets photo",
+            "destacado": 1
+        },
+        {
+            "name": "Tsuki Odisey Objets",
+            "description": "Proyecto web de muestra con diferentes objetos interactivos.",
+            "image": "./img/webspre/Macbook-Air-francocalegari.github.io.png",
+            "url": "https://francocalegari.github.io/TsukiOdiseyObjets/",
+            "alt": "Tsuki Odisey Objets"
+        },
+        {
+            "name": "Redmi 9 - Tribute",
+            "description": "Tributo web al Redmi 9.",
+            "image": "./img/webspre/Macbook-Air-francocalegari.github.io Redmi9Tribute.png",
+            "url": "https://francocalegari.github.io/Redmi9-testweb/",
+            "alt": "Redmi 9 Tribute"
+        },
+        {
+            "name": "Autos",
+            "description": "Web de autos de prueba tipo Racing.",
+            "image": "./img/webspre/Rapidos y Furiosos Racing - Google Chrome 6_9_2023 12_07_04.png",
+            "url": "https://francocalegari.github.io/autotest/",
+            "alt": "Autos"
+        },
+        {
+            "name": "Web de peliculas",
+            "description": "Sitio web de películas tipo streaming demo.",
+            "image": "./img/webspre/Dino Movie - Google Chrome 6_9_2023 11_59_49.png",
+            "url": "https://francocalegari.github.io/DinoSream/",
+            "alt": "Web de peliculas"
+        },
+        {
+            "name": "Hamburguesas",
+            "description": "Web demo de hamburguesas con menú interactivo.",
+            "image": "./img/webspre/Hamburguesas - Google Chrome 6_9_2023 12_02_19.png",
+            "url": "https://francocalegari.github.io/Hamburguesas/",
+            "alt": "Hamburguesas"
+        },
+        {
+            "name": "Test de pagina de peluqueria",
+            "description": "Página de prueba de peluquería.",
+            "image": "./img/webspre/Peluquería XYZ - Google Chrome 6_9_2023 12_08_13.png",
+            "url": "#",
+            "alt": "Test de peluqueria"
+        },
+        {
+            "name": "Documentacion JavaScript",
+            "description": "Documentación de JavaScript de ejemplo.",
+            "image": "./img/icon/nophoto.jpg",
+            "url": "https://francocalegari.github.io/CursoJavaScriptFrancoCalegari/",
+            "alt": "Documentacion JavaScript"
+        },
+        {
+            "name": "Js Automatizaciones",
+            "description": "Landing Page con formulario de contacto, dominio y configuracion de dns para cliente.",
+            "url": "https://jsautomatizaciones.com.ar",
+            "image": "https://github.com/FrancoCalegari/SeguridadDomesticaWeb/blob/main/public/img/logo.png?raw=true",
+            "alt": "Js Automatizaciones web",
+            "destacado": 0
+        },
+        {
+            "name": "Don Juan Demo",
+            "description": "Un menu Tienda web donde puedes pedir por whatsapp.",
+            "url": "https://francocalegari.github.io/DonJuanDemo/",
+            "image": "https://github.com/FrancoCalegari/DonJuanDemo/blob/main/img/Logo.jpg?raw=true",
+            "alt": "Don juan demo burguers",
+            "destacado": 0
+        }
+    ]
 }
