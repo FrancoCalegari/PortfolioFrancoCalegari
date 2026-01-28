@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Admin Dashboard - Franco Calegari Portfolio</title>
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+		/>
+		<link rel="shortcut icon" href="../img/logoweb.png" />
+	</head>
+	<body>
+		<div class="container">
+			<!-- Header -->
+			<header class="admin-header">
+				<div class="header-content">
+					<h1><i class="bi bi-gear-fill"></i> Admin Dashboard</h1>
+					<a href="../index.html" class="btn-back" target="_blank">
+						<i class="bi bi-eye"></i> Ver Portfolio
+					</a>
+				</div>
+			</header>
+
+			<!-- Main Content -->
+			<main class="main-content">
+				<!-- Formulario de Proyecto -->
+				<section class="form-section">
+					<div class="card">
+						<h2 id="form-title">
+							<i class="bi bi-plus-circle"></i> Agregar Nuevo Proyecto
+						</h2>
+						<form id="project-form">
+							<input type="hidden" id="project-index" value="" />
+
+							<div class="form-grid">
+								<div class="form-group">
+									<label for="name">
+										<i class="bi bi-card-heading"></i> Nombre del Proyecto *
+									</label>
+									<input
+										type="text"
+										id="name"
+										required
+										placeholder="Ej: Mi Proyecto Web"
+									/>
+								</div>
+
+								<div class="form-group">
+									<label for="url">
+										<i class="bi bi-link-45deg"></i> URL del Proyecto *
+									</label>
+									<input
+										type="url"
+										id="url"
+										required
+										placeholder="https://ejemplo.com"
+									/>
+								</div>
+
+								<div class="form-group full-width">
+									<label for="description">
+										<i class="bi bi-text-paragraph"></i> Descripción
+									</label>
+									<textarea
+										id="description"
+										rows="3"
+										placeholder="Breve descripción del proyecto"
+									></textarea>
+								</div>
+
+								<div class="form-group">
+									<label for="image">
+										<i class="bi bi-image"></i> URL de la Imagen
+									</label>
+									<input
+										type="url"
+										id="image"
+										placeholder="https://ejemplo.com/imagen.jpg"
+									/>
+								</div>
+
+								<div class="form-group">
+									<label for="alt">
+										<i class="bi bi-card-text"></i> Texto Alternativo (Alt)
+									</label>
+									<input
+										type="text"
+										id="alt"
+										placeholder="Descripción de la imagen"
+									/>
+								</div>
+
+								<div class="form-group checkbox-group">
+									<label class="checkbox-label">
+										<input type="checkbox" id="destacado" />
+										<span
+											><i class="bi bi-star-fill"></i> Proyecto Destacado</span
+										>
+									</label>
+								</div>
+							</div>
+
+							<!-- Preview de Imagen -->
+							<div
+								id="image-preview"
+								class="image-preview"
+								style="display: none"
+							>
+								<p><i class="bi bi-eye"></i> Preview:</p>
+								<img id="preview-img" src="" alt="Preview" />
+							</div>
+
+							<!-- Botones -->
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary" id="submit-btn">
+									<i class="bi bi-save"></i> Guardar Proyecto
+								</button>
+								<button
+									type="button"
+									class="btn btn-secondary"
+									id="cancel-btn"
+									style="display: none"
+								>
+									<i class="bi bi-x-circle"></i> Cancelar
+								</button>
+							</div>
+						</form>
+					</div>
+				</section>
+
+				<!-- Lista de Proyectos -->
+				<section class="projects-section">
+					<div class="card">
+						<div class="section-header">
+							<h2><i class="bi bi-list-ul"></i> Proyectos Existentes</h2>
+							<span id="projects-count" class="count-badge">0 proyectos</span>
+						</div>
+
+						<div class="table-container">
+							<table id="projects-table">
+								<thead>
+									<tr>
+										<th>Imagen</th>
+										<th>Nombre</th>
+										<th>URL</th>
+										<th>Descripción</th>
+										<th>Destacado</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<tbody id="projects-list">
+									<!-- Se llenará dinámicamente -->
+								</tbody>
+							</table>
+						</div>
+
+						<div id="empty-state" class="empty-state" style="display: none">
+							<i class="bi bi-inbox"></i>
+							<p>No hay proyectos todavía</p>
+							<p class="text-muted">
+								Agrega tu primer proyecto usando el formulario
+							</p>
+						</div>
+					</div>
+				</section>
+			</main>
+		</div>
+
+		<!-- Modal de Confirmación -->
+		<div id="confirm-modal" class="modal" style="display: none">
+			<div class="modal-content">
+				<div class="modal-header">
+					<i class="bi bi-exclamation-triangle"></i>
+					<h3>Confirmar Eliminación</h3>
+				</div>
+				<p>
+					¿Estás seguro de eliminar este proyecto? Esta acción no se puede
+					deshacer.
+				</p>
+				<div class="modal-actions">
+					<button class="btn btn-danger" id="confirm-delete">
+						<i class="bi bi-trash"></i> Eliminar
+					</button>
+					<button class="btn btn-secondary" id="cancel-delete">Cancelar</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Toast Notifications -->
+		<div id="toast" class="toast"></div>
+
+		<script src="script.js"></script>
+	</body>
+</html>

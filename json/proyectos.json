@@ -1,10 +1,10 @@
 {
     "projects": [
         {
-            "name": "Spider Web Programing",
-            "description": "Landing Page sobre venta de servicios digitales.",
-            "image": "https://github.com/FrancoCalegari/SpiderWebTest/blob/main/assets/img/recurses/logos/SpiderLogo.jpg?raw=true",
-            "url": "https://francocalegari.github.io/SpiderWebTest/",
+            "name": "Spider Web",
+            "url": "https://spider-web-test.vercel.app/",
+            "description": "Emprendimiento de paginas web, marketing, apps y mas.",
+            "image": "https://spider-web-test.vercel.app/assets/img/recurses/logos/SpiderLogo.jpg",
             "alt": "SpiderWeb photo",
             "destacado": 1
         },
@@ -21,7 +21,8 @@
             "description": "Una PWA sencila para calcular descuentos.",
             "image": "https://raw.githubusercontent.com/FrancoCalegari/CalcDes/refs/heads/main/icons/Logo.png",
             "url": "https://francocalegari.github.io/CalcDes/",
-            "alt": "CalcDes web photo"
+            "alt": "CalcDes web photo",
+            "destacado": 0
         },
         {
             "name": "LawPortal",
@@ -33,18 +34,11 @@
         },
         {
             "name": "Pomo Lofi",
-            "description": "Es una web app tipo pomodoro configurable para que puedas relajarte y estudiar",
-            "image": "./img/logo pomolofi.png",
             "url": "https://francocalegari.github.io/PomoLofi/",
-            "alt": "PomoLofi photo"
-        },
-        {
-            "name": "Demo Burguers",
-            "description": "Demo de una web para hamburguesas.",
-            "image": "./img/logowebs/LogoBurger.png",
-            "url": "https://burger-point-test.vercel.app/",
-            "alt": "BurgerPointTest",
-            "destacado": 1
+            "description": "Es una web app tipo pomodoro configurable para que puedas relajarte y estudiar",
+            "image": "https://francocalegari.github.io/PomoLofi/assets/img/icon-192.png",
+            "alt": "PomoLofi photo",
+            "destacado": 0
         },
         {
             "name": "Super-Tec Web",
@@ -60,21 +54,23 @@
             "image": "https://github.com/FrancoCalegari/TurnosPantalla/blob/main/public/assets/img/logowebs.png?raw=true",
             "url": "https://turnos-pantalla.vercel.app/",
             "alt": "TsukiOdiseyObjets photo",
-            "destacado": 1
+            "destacado": 0
         },
         {
             "name": "Tsuki Odisey Objets",
+            "url": "https://tsuki-odissey-objets.vercel.app/",
             "description": "Proyecto web de muestra con diferentes objetos interactivos.",
-            "image": "./img/webspre/Macbook-Air-francocalegari.github.io.png",
-            "url": "https://francocalegari.github.io/TsukiOdiseyObjets/",
-            "alt": "Tsuki Odisey Objets"
+            "image": "https://tsuki-odissey-objets.vercel.app/assets/img/Logo.png",
+            "alt": "Tsuki Odisey Objets",
+            "destacado": 0
         },
         {
             "name": "Redmi 9 - Tribute",
-            "description": "Tributo web al Redmi 9.",
-            "image": "./img/webspre/Macbook-Air-francocalegari.github.io Redmi9Tribute.png",
             "url": "https://francocalegari.github.io/Redmi9-testweb/",
-            "alt": "Redmi 9 Tribute"
+            "description": "Tributo web al Redmi 9.",
+            "image": "https://francocalegari.github.io/Redmi9-testweb/img/logo-web-redmi9.png",
+            "alt": "Redmi 9 Tribute",
+            "destacado": 0
         },
         {
             "name": "Autos",
@@ -117,7 +113,7 @@
             "url": "https://jsautomatizaciones.com.ar",
             "image": "https://github.com/FrancoCalegari/SeguridadDomesticaWeb/blob/main/public/img/logo.png?raw=true",
             "alt": "Js Automatizaciones web",
-            "destacado": 0
+            "destacado": 1
         },
         {
             "name": "Don Juan Demo",
@@ -125,6 +121,30 @@
             "url": "https://francocalegari.github.io/DonJuanDemo/",
             "image": "https://github.com/FrancoCalegari/DonJuanDemo/blob/main/img/Logo.jpg?raw=true",
             "alt": "Don juan demo burguers",
+            "destacado": 0
+        },
+        {
+            "name": "HeartCodes",
+            "url": "https://hear-t-codes.vercel.app/",
+            "description": "Web de codigos de recompensas de Heartopia",
+            "image": "https://hear-t-codes.vercel.app/img/icon-192.png",
+            "alt": "",
+            "destacado": 0
+        },
+        {
+            "name": "ValzoeTour",
+            "url": "https://www.valzoetur.com.ar/",
+            "description": "Web para un emprendimiento de Tour de bodegas mendoza",
+            "image": "https://www.valzoetur.com.ar/assets/img/logo.png",
+            "alt": "",
+            "destacado": 1
+        },
+        {
+            "name": "PetAgent",
+            "url": "https://pet-agend.vercel.app/",
+            "description": "Una PWA para guardar informacion importante de las mascotas con Login",
+            "image": "https://pet-agend.vercel.app/images/icon-192.png",
+            "alt": "",
             "destacado": 0
         }
     ]
