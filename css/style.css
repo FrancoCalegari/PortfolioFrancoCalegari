@@ -706,8 +706,10 @@ footer .footerIcons a:hover .icon {
 .proyectsALL .proyecto-item img {
 	width: 100%;
 	height: 200px;
-	object-fit: cover;
+	object-fit: contain;
 	transition: opacity 0.3s ease;
+	background-color: #fff;
+	padding: 1rem;
 }
 
 .proyectsALL .proyecto-item h3 {
