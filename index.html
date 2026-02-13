@@ -172,7 +172,7 @@
 				// Load services preview dynamically
 				document.addEventListener("DOMContentLoaded", async () => {
 					try {
-						const res = await fetch(window.location.origin + "/api/services");
+						const res = await fetch("./json/servicios.json");
 						const data = await res.json();
 						const container = document.getElementById(
 							"services-preview-container",

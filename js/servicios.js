@@ -2,7 +2,6 @@
 // SERVICIOS PAGE - JavaScript
 // ========================================
 
-const API_BASE = window.location.origin + "/api";
 let currentCurrency = "ARS";
 let servicesData = [];
 let packagesData = [];
@@ -79,7 +78,7 @@ function setupCurrencyToggle() {
 // ==================== DYNAMIC DATA LOADING ====================
 async function loadServicesPage() {
 	try {
-		const response = await fetch(`${API_BASE}/services`);
+		const response = await fetch("./json/servicios.json");
 		const data = await response.json();
 		servicesData = data.services || [];
 		renderServices();
@@ -90,7 +89,7 @@ async function loadServicesPage() {
 
 async function loadPackagesPage() {
 	try {
-		const response = await fetch(`${API_BASE}/packages`);
+		const response = await fetch("./json/paquetes.json");
 		const data = await response.json();
 		packagesData = data.packages || [];
 		renderPackages();
