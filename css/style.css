@@ -500,6 +500,118 @@ main .projects .proyectAppContainer:hover p {
 	opacity: 1;
 }
 
+/* Services Preview Section */
+
+.services-preview {
+	padding: 4rem 2rem;
+	text-align: center;
+	background: linear-gradient(180deg, #fff 0%, #fffdf5 50%, #fff 100%);
+}
+
+.services-preview h2 {
+	font-size: var(--title-font-size);
+	color: var(--secondary-color);
+	margin-bottom: 0.5rem;
+}
+
+.services-preview-subtitle {
+	font-size: var(--paragraph-font-size);
+	color: #777;
+	margin-bottom: 2.5rem;
+}
+
+.services-preview-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1.2rem;
+	max-width: 1000px;
+	margin: 0 auto 2.5rem;
+}
+
+.services-preview-card {
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 191, 0, 0.1);
+	border-radius: var(--border-radius);
+	padding: 1.8rem 1.2rem;
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.services-preview-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 10px 30px rgba(255, 191, 0, 0.2);
+	border-color: rgba(255, 191, 0, 0.4);
+}
+
+.services-preview-card i {
+	font-size: 2rem;
+	color: #d4a000;
+	margin-bottom: 0.8rem;
+	display: block;
+	transition: all 0.3s ease;
+}
+
+.services-preview-card:hover i {
+	color: #ffbf00;
+	transform: scale(1.15) rotate(5deg);
+}
+
+.services-preview-card h3 {
+	font-size: var(--subtitle-font-size);
+	color: var(--secondary-color);
+	margin-bottom: 0.4rem;
+}
+
+.services-preview-card p {
+	font-size: 0.85rem;
+	color: #888;
+	line-height: 1.5;
+}
+
+.services-preview-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: linear-gradient(135deg, #ffbf00, #e6a800);
+	color: #1a1a1a;
+	font-weight: 700;
+	font-size: 1rem;
+	padding: 0.9rem 2.2rem;
+	border-radius: 50px;
+	text-decoration: none;
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	box-shadow: 0 4px 15px rgba(255, 191, 0, 0.3);
+}
+
+.services-preview-cta:hover {
+	transform: translateY(-3px) scale(1.05);
+	box-shadow: 0 8px 25px rgba(255, 191, 0, 0.45);
+}
+
+.services-preview-cta i {
+	transition: transform 0.3s ease;
+}
+
+.services-preview-cta:hover i {
+	transform: translateX(4px);
+}
+
+@media (max-width: 600px) {
+	.services-preview-grid {
+		grid-template-columns: 1fr 1fr;
+		gap: 0.8rem;
+	}
+
+	.services-preview-card {
+		padding: 1.2rem 0.8rem;
+	}
+
+	.services-preview-card i {
+		font-size: 1.5rem;
+	}
+}
+
 .proyectsButtomMore {
 	background-color: var(--background-light);
 	margin-top: 2rem;

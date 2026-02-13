@@ -55,6 +55,7 @@
 						</div>
 						<ul>
 							<li><a href="./index.html">Inicio</a></li>
+							<li><a href="./servicios.html">Servicios</a></li>
 							<li><a href="./proyectos.html">Proyectos</a></li>
 							<li><a href="#contacto">Contacto</a></li>
 						</ul>
@@ -151,6 +152,48 @@
 					</div>
 				</section>
 			</div>
+
+			<!-- Services Preview Section -->
+			<section class="services-preview">
+				<h2>Mis Servicios</h2>
+				<p class="services-preview-subtitle">
+					Soluciones digitales para llevar tu proyecto al siguiente nivel
+				</p>
+				<div class="services-preview-grid" id="services-preview-container">
+					<!-- Loaded dynamically from API -->
+				</div>
+				<a href="./servicios.html" class="services-preview-cta">
+					Ver todos los servicios
+					<i class="bi bi-arrow-right"></i>
+				</a>
+			</section>
+
+			<script>
+				// Load services preview dynamically
+				document.addEventListener("DOMContentLoaded", async () => {
+					try {
+						const res = await fetch(window.location.origin + "/api/services");
+						const data = await res.json();
+						const container = document.getElementById(
+							"services-preview-container",
+						);
+						if (!container || !data.services) return;
+						container.innerHTML = data.services
+							.map(
+								(svc) => `
+							<div class="services-preview-card">
+								<i class="bi ${svc.icon || "bi-question-circle"}"></i>
+								<h3>${svc.name}</h3>
+								<p>${svc.description ? svc.description.substring(0, 60) + (svc.description.length > 60 ? "..." : "") : ""}</p>
+							</div>
+						`,
+							)
+							.join("");
+					} catch (err) {
+						console.error("Error loading services preview:", err);
+					}
+				});
+			</script>
 
 			<section class="projects">
 				<h2>Proyectos destacados</h2>

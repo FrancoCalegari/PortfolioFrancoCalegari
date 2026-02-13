@@ -1,0 +1,36 @@
+{
+    "services": [
+        {
+            "icon": "bi-code-slash",
+            "name": "Programación Web",
+            "description": "Todas las páginas que puedas imaginar. El precio depende de lo que necesites: landing pages, e-commerce, PWAs y más.",
+            "priceARS": 130000,
+            "priceUSD": 90,
+            "pricePrefix": "Desde"
+        },
+        {
+            "icon": "bi-palette",
+            "name": "Diseño Gráfico",
+            "description": "Flyers, publicidad, branding, historias de Instagram, diseño de logo y más para tu marca.",
+            "priceARS": 10000,
+            "priceUSD": 10,
+            "pricePrefix": "Desde"
+        },
+        {
+            "icon": "bi-camera-video",
+            "name": "Edición de Video",
+            "description": "TikToks, Reels, YouTube Shorts, videos largos, resumen de stream y contenido audiovisual.",
+            "priceARS": 10000,
+            "priceUSD": 10,
+            "pricePrefix": "Desde"
+        },
+        {
+            "icon": "bi-tools",
+            "name": "Servicio Técnico",
+            "description": "Limpieza y reparación de PC, instalación de componentes, diagnóstico y solución de errores de hardware y software.",
+            "priceARS": 20000,
+            "priceUSD": 18,
+            "pricePrefix": "Desde"
+        }
+    ]
+}

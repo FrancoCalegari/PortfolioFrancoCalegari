@@ -17,154 +17,487 @@
 			<header class="admin-header">
 				<div class="header-content">
 					<h1><i class="bi bi-gear-fill"></i> Admin Dashboard</h1>
-					<a href="../index.html" class="btn-back" target="_blank">
-						<i class="bi bi-eye"></i> Ver Portfolio
-					</a>
+					<div style="display: flex; align-items: center; gap: 0.8rem">
+						<span
+							id="dolar-badge"
+							class="dolar-badge"
+							style="display: none"
+						></span>
+						<a href="../index.html" class="btn-back" target="_blank">
+							<i class="bi bi-eye"></i> Ver Portfolio
+						</a>
+					</div>
 				</div>
 			</header>
 
+			<!-- Tab Navigation -->
+			<div class="admin-tabs">
+				<button class="tab-btn active" data-tab="proyectos">
+					<i class="bi bi-folder"></i> Proyectos
+				</button>
+				<button class="tab-btn" data-tab="servicios">
+					<i class="bi bi-briefcase"></i> Servicios
+				</button>
+				<button class="tab-btn" data-tab="paquetes">
+					<i class="bi bi-box-seam"></i> Paquetes
+				</button>
+			</div>
+
 			<!-- Main Content -->
 			<main class="main-content">
-				<!-- Formulario de Proyecto -->
-				<section class="form-section">
-					<div class="card">
-						<h2 id="form-title">
-							<i class="bi bi-plus-circle"></i> Agregar Nuevo Proyecto
-						</h2>
-						<form id="project-form">
-							<input type="hidden" id="project-index" value="" />
-
-							<div class="form-grid">
-								<div class="form-group">
-									<label for="name">
-										<i class="bi bi-card-heading"></i> Nombre del Proyecto *
-									</label>
-									<input
-										type="text"
-										id="name"
-										required
-										placeholder="Ej: Mi Proyecto Web"
-									/>
+				<!-- ==================== TAB: PROYECTOS ==================== -->
+				<div class="tab-content active" id="tab-proyectos">
+					<!-- Formulario de Proyecto -->
+					<section class="form-section">
+						<div class="card">
+							<h2 id="form-title">
+								<i class="bi bi-plus-circle"></i> Agregar Nuevo Proyecto
+							</h2>
+							<form id="project-form">
+								<input type="hidden" id="project-index" value="" />
+								<div class="form-grid">
+									<div class="form-group">
+										<label for="name">
+											<i class="bi bi-card-heading"></i> Nombre del Proyecto *
+										</label>
+										<input
+											type="text"
+											id="name"
+											required
+											placeholder="Ej: Mi Proyecto Web"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="url">
+											<i class="bi bi-link-45deg"></i> URL del Proyecto *
+										</label>
+										<input
+											type="url"
+											id="url"
+											required
+											placeholder="https://ejemplo.com"
+										/>
+									</div>
+									<div class="form-group full-width">
+										<label for="description">
+											<i class="bi bi-text-paragraph"></i> Descripción
+										</label>
+										<textarea
+											id="description"
+											rows="3"
+											placeholder="Breve descripción del proyecto"
+										></textarea>
+									</div>
+									<div class="form-group">
+										<label for="image">
+											<i class="bi bi-image"></i> URL de la Imagen
+										</label>
+										<input
+											type="url"
+											id="image"
+											placeholder="https://ejemplo.com/imagen.jpg"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="alt">
+											<i class="bi bi-card-text"></i> Texto Alternativo (Alt)
+										</label>
+										<input
+											type="text"
+											id="alt"
+											placeholder="Descripción de la imagen"
+										/>
+									</div>
+									<div class="form-group checkbox-group">
+										<label class="checkbox-label">
+											<input type="checkbox" id="destacado" />
+											<span
+												><i class="bi bi-star-fill"></i> Proyecto
+												Destacado</span
+											>
+										</label>
+									</div>
 								</div>
-
-								<div class="form-group">
-									<label for="url">
-										<i class="bi bi-link-45deg"></i> URL del Proyecto *
-									</label>
-									<input
-										type="url"
-										id="url"
-										required
-										placeholder="https://ejemplo.com"
-									/>
-								</div>
-
-								<div class="form-group full-width">
-									<label for="description">
-										<i class="bi bi-text-paragraph"></i> Descripción
-									</label>
-									<textarea
-										id="description"
-										rows="3"
-										placeholder="Breve descripción del proyecto"
-									></textarea>
-								</div>
-
-								<div class="form-group">
-									<label for="image">
-										<i class="bi bi-image"></i> URL de la Imagen
-									</label>
-									<input
-										type="url"
-										id="image"
-										placeholder="https://ejemplo.com/imagen.jpg"
-									/>
-								</div>
-
-								<div class="form-group">
-									<label for="alt">
-										<i class="bi bi-card-text"></i> Texto Alternativo (Alt)
-									</label>
-									<input
-										type="text"
-										id="alt"
-										placeholder="Descripción de la imagen"
-									/>
-								</div>
-
-								<div class="form-group checkbox-group">
-									<label class="checkbox-label">
-										<input type="checkbox" id="destacado" />
-										<span
-											><i class="bi bi-star-fill"></i> Proyecto Destacado</span
-										>
-									</label>
-								</div>
-							</div>
-
-							<!-- Preview de Imagen -->
-							<div
-								id="image-preview"
-								class="image-preview"
-								style="display: none"
-							>
-								<p><i class="bi bi-eye"></i> Preview:</p>
-								<img id="preview-img" src="" alt="Preview" />
-							</div>
-
-							<!-- Botones -->
-							<div class="form-actions">
-								<button type="submit" class="btn btn-primary" id="submit-btn">
-									<i class="bi bi-save"></i> Guardar Proyecto
-								</button>
-								<button
-									type="button"
-									class="btn btn-secondary"
-									id="cancel-btn"
+								<div
+									id="image-preview"
+									class="image-preview"
 									style="display: none"
 								>
-									<i class="bi bi-x-circle"></i> Cancelar
-								</button>
+									<p><i class="bi bi-eye"></i> Preview:</p>
+									<img id="preview-img" src="" alt="Preview" />
+								</div>
+								<div class="form-actions">
+									<button type="submit" class="btn btn-primary" id="submit-btn">
+										<i class="bi bi-save"></i> Guardar Proyecto
+									</button>
+									<button
+										type="button"
+										class="btn btn-secondary"
+										id="cancel-btn"
+										style="display: none"
+									>
+										<i class="bi bi-x-circle"></i> Cancelar
+									</button>
+								</div>
+							</form>
+						</div>
+					</section>
+
+					<!-- Lista de Proyectos -->
+					<section class="projects-section">
+						<div class="card">
+							<div class="section-header">
+								<h2><i class="bi bi-list-ul"></i> Proyectos Existentes</h2>
+								<span id="projects-count" class="count-badge">0 proyectos</span>
 							</div>
-						</form>
-					</div>
-				</section>
-
-				<!-- Lista de Proyectos -->
-				<section class="projects-section">
-					<div class="card">
-						<div class="section-header">
-							<h2><i class="bi bi-list-ul"></i> Proyectos Existentes</h2>
-							<span id="projects-count" class="count-badge">0 proyectos</span>
+							<div class="table-container">
+								<table id="projects-table">
+									<thead>
+										<tr>
+											<th>Imagen</th>
+											<th>Nombre</th>
+											<th>URL</th>
+											<th>Descripción</th>
+											<th>Destacado</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody id="projects-list"></tbody>
+								</table>
+							</div>
+							<div id="empty-state" class="empty-state" style="display: none">
+								<i class="bi bi-inbox"></i>
+								<p>No hay proyectos todavía</p>
+								<p class="text-muted">
+									Agrega tu primer proyecto usando el formulario
+								</p>
+							</div>
 						</div>
+					</section>
+				</div>
 
-						<div class="table-container">
-							<table id="projects-table">
-								<thead>
-									<tr>
-										<th>Imagen</th>
-										<th>Nombre</th>
-										<th>URL</th>
-										<th>Descripción</th>
-										<th>Destacado</th>
-										<th>Acciones</th>
-									</tr>
-								</thead>
-								<tbody id="projects-list">
-									<!-- Se llenará dinámicamente -->
-								</tbody>
-							</table>
+				<!-- ==================== TAB: SERVICIOS ==================== -->
+				<div class="tab-content" id="tab-servicios">
+					<!-- Formulario de Servicio -->
+					<section class="form-section">
+						<div class="card">
+							<h2 id="svc-form-title">
+								<i class="bi bi-plus-circle"></i> Agregar Nuevo Servicio
+							</h2>
+							<form id="service-form">
+								<input type="hidden" id="svc-index" value="" />
+								<div class="form-grid">
+									<div class="form-group">
+										<label for="svc-name">
+											<i class="bi bi-card-heading"></i> Nombre *
+										</label>
+										<input
+											type="text"
+											id="svc-name"
+											required
+											placeholder="Ej: Programación Web"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="svc-icon">
+											<i class="bi bi-emoji-smile"></i> Ícono (Bootstrap Icons)
+										</label>
+										<input
+											type="text"
+											id="svc-icon"
+											placeholder="bi-code-slash"
+										/>
+										<small class="form-hint"
+											>Clase de
+											<a href="https://icons.getbootstrap.com/" target="_blank"
+												>Bootstrap Icons</a
+											></small
+										>
+									</div>
+									<div class="form-group full-width">
+										<label for="svc-description">
+											<i class="bi bi-text-paragraph"></i> Descripción
+										</label>
+										<textarea
+											id="svc-description"
+											rows="3"
+											placeholder="Descripción del servicio"
+										></textarea>
+									</div>
+									<div class="form-group">
+										<label for="svc-priceARS">
+											<i class="bi bi-currency-dollar"></i> Precio ARS
+										</label>
+										<input
+											type="text"
+											id="svc-priceARS"
+											class="price-input"
+											placeholder="100000"
+											inputmode="numeric"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="svc-priceUSD">
+											<i class="bi bi-currency-dollar"></i> Precio USD
+										</label>
+										<input
+											type="text"
+											id="svc-priceUSD"
+											class="price-input"
+											placeholder="90"
+											inputmode="numeric"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="svc-prefix">
+											<i class="bi bi-tag"></i> Prefijo
+										</label>
+										<input
+											type="text"
+											id="svc-prefix"
+											placeholder="Desde"
+											value="Desde"
+										/>
+									</div>
+								</div>
+								<!-- Icon Preview -->
+								<div
+									id="svc-icon-preview"
+									class="icon-preview"
+									style="display: none"
+								>
+									<p><i class="bi bi-eye"></i> Preview del ícono:</p>
+									<i
+										id="svc-icon-preview-icon"
+										class=""
+										style="font-size: 2rem"
+									></i>
+								</div>
+								<div class="form-actions">
+									<button
+										type="submit"
+										class="btn btn-primary"
+										id="svc-submit-btn"
+									>
+										<i class="bi bi-save"></i> Guardar Servicio
+									</button>
+									<button
+										type="button"
+										class="btn btn-secondary"
+										id="svc-cancel-btn"
+										style="display: none"
+									>
+										<i class="bi bi-x-circle"></i> Cancelar
+									</button>
+								</div>
+							</form>
 						</div>
+					</section>
 
-						<div id="empty-state" class="empty-state" style="display: none">
-							<i class="bi bi-inbox"></i>
-							<p>No hay proyectos todavía</p>
-							<p class="text-muted">
-								Agrega tu primer proyecto usando el formulario
-							</p>
+					<!-- Lista de Servicios -->
+					<section class="projects-section">
+						<div class="card">
+							<div class="section-header">
+								<h2><i class="bi bi-briefcase"></i> Servicios Existentes</h2>
+								<span id="services-count" class="count-badge">0 servicios</span>
+							</div>
+							<div class="table-container" id="svc-table-container">
+								<table>
+									<thead>
+										<tr>
+											<th>Ícono</th>
+											<th>Nombre</th>
+											<th>Descripción</th>
+											<th>ARS</th>
+											<th>USD</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody id="services-list"></tbody>
+								</table>
+							</div>
+							<div
+								id="svc-empty-state"
+								class="empty-state"
+								style="display: none"
+							>
+								<i class="bi bi-inbox"></i>
+								<p>No hay servicios todavía</p>
+								<p class="text-muted">
+									Agrega tu primer servicio usando el formulario
+								</p>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+				</div>
+
+				<!-- ==================== TAB: PAQUETES ==================== -->
+				<div class="tab-content" id="tab-paquetes">
+					<!-- Formulario de Paquete -->
+					<section class="form-section">
+						<div class="card">
+							<h2 id="pkg-form-title">
+								<i class="bi bi-plus-circle"></i> Agregar Nuevo Paquete
+							</h2>
+							<form id="package-form">
+								<input type="hidden" id="pkg-index" value="" />
+								<div class="form-grid">
+									<div class="form-group">
+										<label for="pkg-name">
+											<i class="bi bi-card-heading"></i> Nombre *
+										</label>
+										<input
+											type="text"
+											id="pkg-name"
+											required
+											placeholder="Ej: Pack Redes Básico"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="pkg-tag">
+											<i class="bi bi-tag"></i> Etiqueta
+										</label>
+										<input type="text" id="pkg-tag" placeholder="Ej: Redes" />
+									</div>
+									<div class="form-group full-width">
+										<label for="pkg-description">
+											<i class="bi bi-text-paragraph"></i> Descripción
+										</label>
+										<textarea
+											id="pkg-description"
+											rows="3"
+											placeholder="Descripción del paquete"
+										></textarea>
+									</div>
+									<div class="form-group">
+										<label for="pkg-priceARS">
+											<i class="bi bi-currency-dollar"></i> Precio ARS *
+										</label>
+										<input
+											type="text"
+											id="pkg-priceARS"
+											class="price-input"
+											required
+											placeholder="50000"
+											inputmode="numeric"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="pkg-priceUSD">
+											<i class="bi bi-currency-dollar"></i> Precio USD *
+										</label>
+										<input
+											type="text"
+											id="pkg-priceUSD"
+											class="price-input"
+											required
+											placeholder="45"
+											inputmode="numeric"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="pkg-period">
+											<i class="bi bi-calendar"></i> Período
+										</label>
+										<input
+											type="text"
+											id="pkg-period"
+											placeholder="Pago único"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="pkg-badge">
+											<i class="bi bi-award"></i> Descuento (%)
+										</label>
+										<input
+											type="number"
+											id="pkg-badge"
+											min="0"
+											max="100"
+											step="1"
+											placeholder="25"
+										/>
+										<small class="form-hint"
+											>Porcentaje de descuento (1-100). Dejá en 0 o vacío si no
+											hay descuento.</small
+										>
+									</div>
+								</div>
+
+								<!-- Features dinámicas -->
+								<div class="features-section">
+									<label
+										><i class="bi bi-list-check"></i> Características
+										incluidas</label
+									>
+									<div id="pkg-features-list" class="features-list"></div>
+									<button
+										type="button"
+										class="btn btn-secondary btn-sm"
+										id="pkg-add-feature"
+									>
+										<i class="bi bi-plus"></i> Agregar característica
+									</button>
+								</div>
+
+								<div class="form-actions" style="margin-top: 1.5rem">
+									<button
+										type="submit"
+										class="btn btn-primary"
+										id="pkg-submit-btn"
+									>
+										<i class="bi bi-save"></i> Guardar Paquete
+									</button>
+									<button
+										type="button"
+										class="btn btn-secondary"
+										id="pkg-cancel-btn"
+										style="display: none"
+									>
+										<i class="bi bi-x-circle"></i> Cancelar
+									</button>
+								</div>
+							</form>
+						</div>
+					</section>
+
+					<!-- Lista de Paquetes -->
+					<section class="projects-section">
+						<div class="card">
+							<div class="section-header">
+								<h2><i class="bi bi-box-seam"></i> Paquetes Existentes</h2>
+								<span id="packages-count" class="count-badge">0 paquetes</span>
+							</div>
+							<div class="table-container" id="pkg-table-container">
+								<table>
+									<thead>
+										<tr>
+											<th>Nombre</th>
+											<th>Etiqueta</th>
+											<th>Precio ARS</th>
+											<th>Precio USD</th>
+											<th>Período</th>
+											<th>Features</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody id="packages-list"></tbody>
+								</table>
+							</div>
+							<div
+								id="pkg-empty-state"
+								class="empty-state"
+								style="display: none"
+							>
+								<i class="bi bi-inbox"></i>
+								<p>No hay paquetes todavía</p>
+								<p class="text-muted">
+									Agrega tu primer paquete usando el formulario
+								</p>
+							</div>
+						</div>
+					</section>
+				</div>
 			</main>
 		</div>
 
@@ -175,8 +508,8 @@
 					<i class="bi bi-exclamation-triangle"></i>
 					<h3>Confirmar Eliminación</h3>
 				</div>
-				<p>
-					¿Estás seguro de eliminar este proyecto? Esta acción no se puede
+				<p id="confirm-modal-text">
+					¿Estás seguro de eliminar este elemento? Esta acción no se puede
 					deshacer.
 				</p>
 				<div class="modal-actions">

@@ -1,0 +1,31 @@
+{
+    "packages": [
+        {
+            "tag": "Redes",
+            "name": "Pack Redes Básico",
+            "description": "7 Flyers + 4 Videos para tus redes sociales",
+            "priceARS": 50000,
+            "priceUSD": 45,
+            "period": "Mensual",
+            "badge": 50,
+            "features": [
+                "Diseño Gráfico (7 flyers)",
+                "Edición de Video (4 videos)"
+            ]
+        },
+        {
+            "tag": "Web",
+            "name": "Pack Web basico",
+            "description": "Paquete rapido para tu emprendimiento (web estatica con la info) + CMS (administrador de contenido basico)",
+            "priceARS": 120000,
+            "priceUSD": 108,
+            "period": "Pago único",
+            "badge": 25,
+            "features": [
+                "CMS basico",
+                "Diseño Responsive",
+                "Diseño a la medida"
+            ]
+        }
+    ]
+}

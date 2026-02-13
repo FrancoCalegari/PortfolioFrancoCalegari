@@ -478,6 +478,174 @@ tbody tr:hover {
 	background: var(--danger-color);
 }
 
+/* ==================== TABS ==================== */
+.admin-tabs {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 2rem;
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-radius: var(--border-radius);
+	padding: 0.5rem;
+	box-shadow: var(--card-shadow);
+}
+
+.tab-btn {
+	flex: 1;
+	padding: 0.8rem 1.2rem;
+	border: none;
+	border-radius: 10px;
+	background: transparent;
+	color: #6b7280;
+	font-weight: 600;
+	font-size: 1rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+	background: rgba(255, 190, 0, 0.1);
+	color: var(--secondary-color);
+}
+
+.tab-btn.active {
+	background: var(--primary-color);
+	color: var(--secondary-color);
+	box-shadow: 0 2px 8px rgba(255, 190, 0, 0.3);
+}
+
+.tab-content {
+	display: none;
+}
+
+.tab-content.active {
+	display: block;
+	animation: fadeIn 0.3s ease;
+}
+
+/* ==================== ICON PREVIEW ==================== */
+.icon-preview {
+	margin: 1rem 0;
+	padding: 1rem;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 8px;
+	text-align: center;
+}
+
+.icon-preview p {
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
+
+.form-hint {
+	font-size: 0.75rem;
+	color: #9ca3af;
+	margin-top: 0.25rem;
+}
+
+.form-hint a {
+	color: #3b82f6;
+}
+
+/* ==================== FEATURES ==================== */
+.features-section {
+	margin-top: 1.5rem;
+}
+
+.features-section > label {
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	margin-bottom: 0.75rem;
+}
+
+.features-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+.feature-row {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.feature-input {
+	flex: 1;
+	padding: 0.6rem;
+	border: 2px solid var(--border-color);
+	border-radius: 8px;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.feature-input:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* ==================== BADGES ==================== */
+.badge-discount {
+	background: var(--danger-color);
+	color: white;
+	padding: 0.15rem 0.5rem;
+	border-radius: 8px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	margin-left: 0.5rem;
+}
+
+.badge-tag {
+	background: #e0e7ff;
+	color: #4338ca;
+	padding: 0.25rem 0.6rem;
+	border-radius: 8px;
+	font-size: 0.8rem;
+	font-weight: 600;
+}
+
+.features-preview {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.8rem;
+}
+
+.features-preview li {
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	color: #4b5563;
+	margin-bottom: 0.15rem;
+}
+
+.features-preview li i {
+	color: var(--success-color);
+	font-size: 0.7rem;
+}
+
+/* ==================== DOLAR BADGE ==================== */
+.dolar-badge {
+	background: linear-gradient(135deg, #10b981, #059669);
+	color: white;
+	padding: 0.4rem 0.8rem;
+	border-radius: 8px;
+	font-size: 0.8rem;
+	font-weight: 700;
+	white-space: nowrap;
+	box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
 /* ==================== ANIMATIONS ==================== */
 @keyframes fadeIn {
 	from {
