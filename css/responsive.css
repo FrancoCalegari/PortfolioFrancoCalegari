@@ -1,25 +1,83 @@
+/* Responsive adaptations & Coarse Pointer (Touch) ergonomics */
 
-@media screen and (max-width: 600px) {
-
-	header nav {
-        justify-content: center;
-        flex-direction: column;
-    }
-    header nav div img{
-        margin-bottom: 1rem;
-        margin-left: 1rem;
-        width: 7rem;
-    }
-    @keyframes extravagantBackground {
-        0% {
-            background-position: 100% 50%;
-        }
-        50% {
-            background-position: 50% 50%;
-        }
-        100% {
-            background-position: 100% 50%;
-        }
-    }
+@media (pointer: coarse) {
+	.nav-links a,
+	.btn-primary-gold,
+	.btn-outline-gold,
+	.project-card-link,
+	.filter-btn {
+		min-block-size: 2.75rem;
+	}
 }
 
+@media screen and (max-width: 860px) {
+	:root {
+		--max-container: 100%;
+	}
+
+	.hero-grid {
+		grid-template-columns: 1fr;
+		text-align: center;
+	}
+
+	.hero-copy {
+		align-items: center;
+		order: 2;
+	}
+
+	.hero-portrait {
+		order: 1;
+	}
+
+	.portrait-frame {
+		inline-size: min(75vw, 260px);
+	}
+
+	.hero-actions,
+	.tech-pills {
+		justify-content: center;
+	}
+}
+
+@media screen and (max-width: 680px) {
+	.menu-toggle {
+		display: inline-flex;
+	}
+
+	.navbar {
+		flex-wrap: wrap;
+	}
+
+	.nav-links {
+		display: none;
+		inline-size: 100%;
+		flex-direction: column;
+		align-items: stretch;
+		padding-block: 0.75rem;
+		border-block-start: 1px solid var(--border-subtle);
+	}
+
+	.nav-links.is-open {
+		display: flex;
+	}
+
+	.nav-links a {
+		justify-content: center;
+		padding-block: 0.65rem;
+	}
+
+	.nav-links li:last-child {
+		display: flex;
+		justify-content: center;
+		padding-block-start: 0.25rem;
+	}
+
+	.hero-actions {
+		inline-size: 100%;
+		flex-direction: column;
+	}
+
+	.hero-actions a {
+		inline-size: 100%;
+	}
+}

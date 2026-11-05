@@ -6,21 +6,21 @@
 		<meta name="disabled-adaptations" content="watch" />
 		<meta
 			name="description"
-			content="Desarrollador de aplicaciones y servicios de marketing. Descubre mis habilidades y proyectos destacados."
-		/>
-		<link rel="stylesheet" href="./css/style.css" />
-		<link rel="stylesheet" href="./css/logo.css" />
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+			content="Franco Calegari — Desarrollador de aplicaciones web, flujos de automatización con IA y marketing digital. Descubre mis habilidades y proyectos destacados."
 		/>
 		<link rel="shortcut icon" href="./img/logoweb.png" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+		/>
 		<link rel="stylesheet" href="./css/intro.css" />
+		<link rel="stylesheet" href="./css/style.css" />
 		<link rel="stylesheet" href="./css/responsive.css" />
-		<meta property="og:title" content="Franco Calegari - Inicio" />
+
+		<meta property="og:title" content="Franco Calegari — Desarrollador Web & IA" />
 		<meta
 			property="og:description"
-			content="Desarrollador de aplicaciones y servicios de marketing. Descubre mis habilidades y proyectos destacados."
+			content="Desarrollador de aplicaciones web, automatización con IA y marketing digital. Descubre mis habilidades y proyectos destacados."
 		/>
 		<meta
 			property="og:image"
@@ -31,229 +31,327 @@
 			name="google-site-verification"
 			content="vh_sW1UZbO1R-DNsHC0oAu8YoxF3omb_NRgM2f-vgSc"
 		/>
-		<title>Franco Calegari - Inicio</title>
-
-		<meta name="theme-color" content="#ffe38f70" />
-		<meta name="msapplication-navbutton-color" content="#ffe38f70" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="#ffe38f70" />
+		<meta name="theme-color" content="#ffbe00" />
+		<title>Franco Calegari | Desarrollador Web & Automatización IA</title>
 	</head>
 	<body>
-		<div class="intro">
-			<img src="./img/logoweb.png" alt="clarkode logo" />
+		<a href="#hero-title" class="skip-link visually-hidden"
+			>Saltar al contenido principal</a
+		>
+
+		<div class="intro" aria-hidden="true">
+			<img src="./img/logoweb.png" alt="" />
 		</div>
 
-		<main>
-			<div class="presentationsection">
-				<div class="moving-circle"></div>
-				<div class="moving-circle"></div>
-				<div class="moving-circle"></div>
-				<div class="moving-circle"></div>
-				<header>
-					<nav>
-						<div>
-							<a href="./index.html"><img src="./img/logoweb.png" alt="" /></a>
-						</div>
-						<ul>
-							<li><a href="./index.html">Inicio</a></li>
-							<li><a href="./servicios.html">Servicios</a></li>
-							<li><a href="./proyectos.html">Proyectos</a></li>
-							<li><a href="#contacto">Contacto</a></li>
-						</ul>
-					</nav>
-				</header>
-				<section class="home">
-					<div class="hometext">
-						<div>
-							<h2>¡Hola! Soy Franco Calegari</h2>
-							<p>
-								Desarrollador de aplicaciones y servicios de marketing. Me
-								especializo en el desarrollo de aplicaciones web y móviles,
-								además de la creación de servicios de marketing digital.
-								Descubre mis habilidades y proyectos destacados.
-							</p>
-						</div>
+		<header class="site-header">
+			<nav class="navbar" aria-label="Principal">
+				<a href="./index.html" class="brand-link">
+					<img
+						src="./img/logoweb.png"
+						alt="Inicio - Portfolio de Franco Calegari"
+						width="56"
+						height="56"
+					/>
+					<span class="brand-name">Franco Calegari</span>
+				</a>
 
-						<div class="tecnologias">
-							<img
-								src="https://francocalegari.github.io/PortfolioFrancoCalegari/img/FrancoCalegariFoto.webp"
-								alt="Franco Calegari Person"
-							/>
-							<div class="tecnologiasIcons">
-								<i class="fa-brands fa-python" data-tooltip="Python"></i>
-								<i class="fa-brands fa-html5" data-tooltip="HTML5"></i>
-								<i class="fa-brands fa-css3" data-tooltip="CSS3"></i>
-								<i class="fa-brands fa-js" data-tooltip="JavaScript"></i>
-								<i class="fa-brands fa-node-js" data-tooltip="Node.js"></i>
-								<i class="fa-brands fa-php" data-tooltip="PHP"></i>
-								<i
-									class="fa-solid fa-database"
-									data-tooltip="Bases de Datos"
-								></i>
-								<i class="fa-brands fa-figma" data-tooltip="Figma"></i>
-								<i class="fa-brands fa-youtube" data-tooltip="YouTube"></i>
+				<button
+					type="button"
+					class="menu-toggle"
+					id="menu-toggle"
+					aria-expanded="false"
+					aria-controls="primary-menu"
+					aria-label="Abrir menú de navegación"
+				>
+					<i class="bi bi-list" aria-hidden="true"></i>
+				</button>
+
+				<ul class="nav-links" id="primary-menu" role="list">
+					<li><a href="./index.html" aria-current="page">Inicio</a></li>
+					<li><a href="#habilidades">Habilidades</a></li>
+					<li><a href="./proyectos.html">Proyectos</a></li>
+					<li><a href="#contacto">Contacto</a></li>
+					<li>
+						<button
+							type="button"
+							class="theme-toggle"
+							id="theme-toggle"
+							aria-label="Cambiar tema claro u oscuro"
+							title="Cambiar tema"
+						>
+							<i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+						</button>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="main-content">
+			<div class="presentationsection">
+				<div class="moving-circle" aria-hidden="true"></div>
+				<div class="moving-circle" aria-hidden="true"></div>
+				<div class="moving-circle" aria-hidden="true"></div>
+
+				<section class="home" aria-labelledby="hero-title">
+					<div class="hero-grid">
+						<div class="hero-copy">
+							<span class="hero-badge">
+								<i class="bi bi-stars" aria-hidden="true"></i> Disponible para
+								nuevos proyectos
+							</span>
+							<h1 id="hero-title" tabindex="-1">
+								¡Hola! Soy <span class="text-accent">Franco Calegari</span>
+							</h1>
+							<p class="hero-description">
+								Desarrollador de aplicaciones web y móviles, especialista en
+								flujos de automatización con IA y soluciones digitales. Construyo
+								experiencias modernas, rápidas y accesibles para cualquier
+								dispositivo.
+							</p>
+
+							<div class="hero-actions">
+								<a
+									href="./cv/Franco_Calegari_CV.pdf"
+									class="btn-primary-gold"
+									download
+								>
+									<i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i>
+									Descargar CV
+								</a>
+								<a href="./proyectos.html" class="btn-outline-gold">
+									Ver Proyectos
+									<i class="bi bi-arrow-right" aria-hidden="true"></i>
+								</a>
 							</div>
 
-							<a
-								href="./cv/Franco_Calegari_CV.pdf"
-								class="download-cv-btn"
-								download
-								>Curriculum</a
+							<ul
+								class="tech-pills"
+								role="list"
+								aria-label="Tecnologías principales"
 							>
+								<li>
+									<i class="fa-brands fa-python" aria-hidden="true"></i> Python
+								</li>
+								<li>
+									<i class="fa-brands fa-html5" aria-hidden="true"></i> HTML5
+								</li>
+								<li>
+									<i class="fa-brands fa-css3" aria-hidden="true"></i> CSS3
+								</li>
+								<li>
+									<i class="fa-brands fa-js" aria-hidden="true"></i> JavaScript
+								</li>
+								<li>
+									<i class="fa-brands fa-node-js" aria-hidden="true"></i>
+									Node.js
+								</li>
+								<li><i class="fa-brands fa-php" aria-hidden="true"></i> PHP</li>
+								<li>
+									<i class="fa-solid fa-database" aria-hidden="true"></i> SQL
+								</li>
+								<li>
+									<i class="fa-brands fa-figma" aria-hidden="true"></i> Figma
+								</li>
+								<li>
+									<i class="fa-brands fa-youtube" aria-hidden="true"></i>
+									YouTube
+								</li>
+							</ul>
+						</div>
+
+						<div class="hero-portrait">
+							<div class="portrait-frame">
+								<img
+									src="./img/FrancoCalegariFoto.webp"
+									alt="Retrato de Franco Calegari"
+									width="360"
+									height="360"
+									fetchpriority="high"
+								/>
+							</div>
 						</div>
 					</div>
 				</section>
 
-				<section class="skills">
-					<h2>Mis habilidades</h2>
-					<div>
-						<div>
-							<i class="bi bi-code-slash"></i>
-							<h3>Desarrollo web</h3>
+				<section class="skills" id="habilidades" aria-labelledby="skills-title">
+					<div class="section-header-block">
+						<h2 id="skills-title">Mis habilidades</h2>
+						<p class="section-subtitle">
+							Tecnología, educación y automatización enfocadas en resultados
+							reales
+						</p>
+					</div>
+
+					<div class="skills-grid">
+						<article class="skill-card">
+							<div class="skill-icon">
+								<i class="bi bi-code-slash" aria-hidden="true"></i>
+							</div>
+							<h3>Desarrollo Web & Apps</h3>
 							<p>
-								Desarrollo de aplicaciones web con tecnologías como NodeJS,
-								HTML5/CSS3, JavaScript, PHP, MySQL, entre otras.
+								Desarrollo de aplicaciones web y PWAs escalables con Node.js,
+								HTML5, CSS moderno, JavaScript, PHP y bases de datos SQL.
 							</p>
-						</div>
-						<div>
-							<i class="fa-solid fa-graduation-cap"></i>
+						</article>
+
+						<article class="skill-card">
+							<div class="skill-icon">
+								<i class="fa-solid fa-robot" aria-hidden="true"></i>
+							</div>
+							<h3>Flujos de Automatización IA</h3>
+							<p>
+								Optimización de procesos manuales o repetitivos mediante flujos
+								de trabajo inteligentes con IA, APIs y n8n.
+							</p>
+						</article>
+
+						<article class="skill-card">
+							<div class="skill-icon">
+								<i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+							</div>
 							<h3>Clases y Canal de YouTube</h3>
 							<p>
-								Imparto clases y tengo un canal de YouTube donde enseño Python,
-								desarrollo web y otros temas relacionados con la programación y
-								tecnología.
+								Formación práctica y creación de contenido educativo sobre
+								Python, desarrollo web y herramientas tecnológicas.
 							</p>
-						</div>
-						<div>
-							<i class="fa-solid fa-robot"></i>
-							<h3>Flujos de automatización IA</h3>
+						</article>
+
+						<article class="skill-card">
+							<div class="skill-icon">
+								<i class="bi bi-graph-up-arrow" aria-hidden="true"></i>
+							</div>
+							<h3>Marketing Digital</h3>
 							<p>
-								Mejoro procesos manuales tediosos o engorrosos mediante el uso
-								de flujos de trabajo por IA mediante n8n entre otros.
+								Estrategias digitales de posicionamiento SEO, SEM, redes
+								sociales y optimización de conversión para negocios.
 							</p>
-						</div>
-						<div>
-							<i class="bi bi-graph-up"></i>
-							<h3>Marketing digital</h3>
+						</article>
+
+						<article class="skill-card">
+							<div class="skill-icon">
+								<i class="fa-solid fa-laptop-medical" aria-hidden="true"></i>
+							</div>
+							<h3>Soporte y Asesoría Técnica</h3>
 							<p>
-								Creación de servicios de marketing digital como SEO, SEM, SMM,
-								Email Marketing, entre otros.
+								Diagnóstico, mantenimiento preventivo y correctivo remoto o
+								presencial para equipos de trabajo, PC y dispositivos móviles.
 							</p>
-						</div>
-						<div>
-							<i class="fa-solid fa-laptop-medical"></i>
-							<h3>Servicio Tecnico</h3>
-							<p>
-								Ofrecemos reparación remota o presencial de laptops, PC,
-								teléfonos, tablets y otros dispositivos. También brindamos
-								asesoramiento técnico para equipos de trabajo y servicios de
-								mantenimiento preventivo y correctivo.
-							</p>
-						</div>
+						</article>
 					</div>
 				</section>
 			</div>
 
-			<!-- Services Preview Section -->
-			<section class="services-preview">
-				<h2>Mis Servicios</h2>
-				<p class="services-preview-subtitle">
-					Soluciones digitales para llevar tu proyecto al siguiente nivel
-				</p>
-				<div class="services-preview-grid" id="services-preview-container">
-					<!-- Loaded dynamically from API -->
+			<section
+				class="projects-section"
+				id="proyectos-destacados"
+				aria-labelledby="featured-projects-title"
+			>
+				<div class="section-header-block">
+					<h2 id="featured-projects-title">Proyectos destacados</h2>
+					<p class="section-subtitle">
+						Selección de aplicaciones, plataformas y sitios web en producción
+					</p>
 				</div>
-				<a href="./servicios.html" class="services-preview-cta">
-					Ver todos los servicios
-					<i class="bi bi-arrow-right"></i>
-				</a>
-			</section>
 
-			<script>
-				// Load services preview dynamically
-				document.addEventListener("DOMContentLoaded", async () => {
-					try {
-						const res = await fetch("./json/servicios.json");
-						const data = await res.json();
-						const container = document.getElementById(
-							"services-preview-container",
-						);
-						if (!container || !data.services) return;
-						container.innerHTML = data.services
-							.map(
-								(svc) => `
-							<div class="services-preview-card">
-								<i class="bi ${svc.icon || "bi-question-circle"}"></i>
-								<h3>${svc.name}</h3>
-								<p>${svc.description ? svc.description.substring(0, 60) + (svc.description.length > 60 ? "..." : "") : ""}</p>
-							</div>
-						`,
-							)
-							.join("");
-					} catch (err) {
-						console.error("Error loading services preview:", err);
-					}
-				});
-			</script>
-
-			<section class="projects">
-				<h2>Proyectos destacados</h2>
-				<div id="featuredProjectsContainer">
-					<!-- Los proyectos destacados se cargarán aquí desde projects.json -->
+				<div
+					id="featuredProjectsContainer"
+					class="projects-grid"
+					aria-live="polite"
+				>
+					<!-- Cargado dinámicamente desde /api/projects -->
 				</div>
-				<a href="./proyectos.html" class="proyectsButtomMore">Ver Mas</a>
+
+				<div class="projects-cta-wrapper">
+					<a href="./proyectos.html" class="btn-primary-gold">
+						Explorar todos los proyectos
+						<i class="bi bi-grid-fill" aria-hidden="true"></i>
+					</a>
+				</div>
 			</section>
 		</main>
 
 		<footer id="contacto">
-			<h2>Mis redes y contacto:</h2>
+			<h2>Mis redes y contacto</h2>
+			<p class="footer-subtitle">
+				¿Tienes una idea o proyecto en mente? Conecta conmigo por cualquiera de
+				estos canales:
+			</p>
 			<div class="footerIcons">
-				<a href="https://www.instagram.com/francocalegari_dw/" target="_blank"
-					><i class="bi bi-instagram"></i>
-					<p>Instagram</p></a
+				<a
+					href="https://www.instagram.com/francocalegari_dw/"
+					target="_blank"
+					rel="noopener noreferrer"
 				>
-				<a href="https://www.youtube.com/@FrancoCalegari" target="_blank"
-					><i class="bi bi-youtube"></i>
-					<p>Youtube</p></a
+					<i class="bi bi-instagram" aria-hidden="true"></i>
+					<span>Instagram</span>
+				</a>
+				<a
+					href="https://www.youtube.com/@FrancoCalegari"
+					target="_blank"
+					rel="noopener noreferrer"
 				>
+					<i class="bi bi-youtube" aria-hidden="true"></i>
+					<span>YouTube</span>
+				</a>
 				<a
 					href="https://www.linkedin.com/in/franco-calegari-860086292/"
 					target="_blank"
-					><i class="bi bi-linkedin"></i>
-					<p>Linkedin</p></a
+					rel="noopener noreferrer"
 				>
-				<a href="https://www.freelancer.com/u/FrancoCalegariAR" target="_blank"
-					><img
+					<i class="bi bi-linkedin" aria-hidden="true"></i>
+					<span>LinkedIn</span>
+				</a>
+				<a
+					href="https://www.freelancer.com/u/FrancoCalegariAR"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
 						class="icon"
 						src="./img/icon/freelancer_icon.png"
-						alt="freelancer"
+						alt=""
+						aria-hidden="true"
+						width="28"
+						height="28"
 					/>
-					<p>Frelancer</p></a
-				>
+					<span>Freelancer</span>
+				</a>
 				<a
 					href="https://github.com/FrancoCalegari?tab=repositories"
 					target="_blank"
-					><i class="bi bi-github"></i>
-					<p>Github</p></a
+					rel="noopener noreferrer"
 				>
-				<a href="https://wa.me/5492617735869" target="_blank"
-					><i class="bi bi-whatsapp"></i>
-					<p>WhatsApp</p></a
+					<i class="bi bi-github" aria-hidden="true"></i>
+					<span>GitHub</span>
+				</a>
+				<a
+					href="https://wa.me/5492617735869"
+					target="_blank"
+					rel="noopener noreferrer"
 				>
-				<a href="mailto:francocalegari55@gmail.com"
-					><i class="bi bi-envelope"></i>
-					<p>Mail</p></a
-				>
+					<i class="bi bi-whatsapp" aria-hidden="true"></i>
+					<span>WhatsApp</span>
+				</a>
+				<a href="mailto:francocalegari55@gmail.com">
+					<i class="bi bi-envelope" aria-hidden="true"></i>
+					<span>Email</span>
+				</a>
 			</div>
+			<p class="footer-copy">
+				© <span id="current-year">2026</span> Franco Calegari. Todos los
+				derechos reservados.
+			</p>
 		</footer>
+
+		<!-- Espacio previsto para el futuro widget de Chatbot con SpiderIA -->
+		<div id="spider-chatbot-slot" hidden aria-hidden="true"></div>
 
 		<script
 			src="https://kit.fontawesome.com/274f77f0e3.js"
 			crossorigin="anonymous"
 		></script>
-		<!-- Vincular el script -->
 		<script src="./js/loadFeaturedProjects.js"></script>
 		<script src="./js/intro.js"></script>
-		<!-- Google tag (gtag.js) -->
 		<script
 			async
 			src="https://www.googletagmanager.com/gtag/js?id=G-5YDLEQEMD4"
@@ -264,7 +362,6 @@
 				dataLayer.push(arguments);
 			}
 			gtag("js", new Date());
-
 			gtag("config", "G-5YDLEQEMD4");
 		</script>
 	</body>

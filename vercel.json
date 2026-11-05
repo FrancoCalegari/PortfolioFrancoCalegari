@@ -1,0 +1,9 @@
+{
+	"version": 2,
+	"cleanUrls": false,
+	"rewrites": [
+		{ "source": "/api/projects/:id", "destination": "/api/projects?id=:id" },
+		{ "source": "/admin", "destination": "/admin/index.html" }
+	]
+}
+

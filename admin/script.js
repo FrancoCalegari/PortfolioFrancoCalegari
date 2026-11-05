@@ -1,85 +1,38 @@
-// ==================== CONFIGURACIÓN ====================
+// ==================== CONFIGURACIÓN CMS ====================
 const API_BASE = window.location.origin + "/api";
 let projects = [];
-let services = [];
-let packages = [];
-let editingIndex = null;
-let editingSvcIndex = null;
-let editingPkgIndex = null;
-let dolarBlueVenta = 0;
+let editingId = null;
 
-// ==================== BLUE DOLLAR ====================
-async function fetchDolarBlue() {
-	try {
-		const res = await fetch("https://dolarapi.com/v1/dolares/blue");
-		const data = await res.json();
-		dolarBlueVenta = data.venta || 0;
-		// Show rate in the header
-		const badge = document.getElementById("dolar-badge");
-		if (badge && dolarBlueVenta > 0) {
-			badge.textContent = `💵 Blue: $${dolarBlueVenta.toLocaleString("es-AR")}`;
-			badge.style.display = "inline-block";
-		}
-		console.log(`Dólar Blue venta: $${dolarBlueVenta}`);
-	} catch (err) {
-		console.warn("No se pudo obtener cotización del dólar blue:", err);
+function getAdminHeaders(extra = {}) {
+	const keyInput = document.getElementById("admin-key-input");
+	const key = keyInput ? keyInput.value.trim() : "";
+	if (key) {
+		sessionStorage.setItem("cms_admin_key", key);
 	}
+	return {
+		"Content-Type": "application/json",
+		"x-admin-key": key || sessionStorage.getItem("cms_admin_key") || "",
+		...extra,
+	};
 }
 
-function arsToUsd(ars) {
-	if (!dolarBlueVenta || dolarBlueVenta === 0) return 0;
-	return Math.round(ars / dolarBlueVenta);
-}
-
-// ==================== PRICE FORMATTING ====================
-function formatPrice(value) {
-	const num = parseInt(String(value).replace(/\D/g, ""), 10);
-	if (isNaN(num)) return "";
-	return "$" + num.toLocaleString("es-AR");
-}
-
-function rawPrice(value) {
-	const num = parseInt(String(value).replace(/\D/g, ""), 10);
-	return isNaN(num) ? 0 : num;
-}
-
-function setupPriceInputs() {
-	document.querySelectorAll(".price-input").forEach((input) => {
-		input.addEventListener("input", (e) => {
-			const raw = rawPrice(e.target.value);
-			if (raw > 0) {
-				e.target.value = formatPrice(raw);
-			} else {
-				e.target.value = "";
-			}
-
-			// Auto-convert ARS → USD
-			if (dolarBlueVenta > 0) {
-				const id = e.target.id;
-				if (id === "svc-priceARS") {
-					document.getElementById("svc-priceUSD").value =
-						raw > 0 ? formatPrice(arsToUsd(raw)) : "";
-				} else if (id === "pkg-priceARS") {
-					document.getElementById("pkg-priceUSD").value =
-						raw > 0 ? formatPrice(arsToUsd(raw)) : "";
-				}
-			}
+document.addEventListener("DOMContentLoaded", () => {
+	const keyInput = document.getElementById("admin-key-input");
+	const savedKey = sessionStorage.getItem("cms_admin_key");
+	if (keyInput && savedKey) {
+		keyInput.value = savedKey;
+	}
+	if (keyInput) {
+		keyInput.addEventListener("change", () => {
+			sessionStorage.setItem("cms_admin_key", keyInput.value.trim());
 		});
-	});
-}
+	}
 
-// ==================== INICIALIZACIÓN ====================
-document.addEventListener("DOMContentLoaded", async () => {
-	await fetchDolarBlue();
-	loadProjects();
-	loadServices();
-	loadPackages();
+	setupTabs();
 	setupEventListeners();
 	setupImagePreview();
-	setupTabs();
-	setupIconPreview();
-	setupFeatures();
-	setupPriceInputs();
+	setupCloudUpload();
+	loadProjects();
 });
 
 // ==================== TABS ====================
@@ -93,33 +46,47 @@ function setupTabs() {
 				.querySelectorAll(".tab-content")
 				.forEach((c) => c.classList.remove("active"));
 			btn.classList.add("active");
-			document
-				.getElementById(`tab-${btn.getAttribute("data-tab")}`)
-				.classList.add("active");
+			const tab = btn.getAttribute("data-tab");
+			document.getElementById(`tab-${tab}`).classList.add("active");
+
+			if (tab === "storage") loadStorageFiles();
+			if (tab === "ia") loadIAStatus();
 		});
 	});
 }
 
-// ==================== EVENT LISTENERS ====================
+// ==================== EVENTOS ====================
 function setupEventListeners() {
 	document
 		.getElementById("project-form")
-		.addEventListener("submit", handleSubmit);
+		.addEventListener("submit", handleProjectSubmit);
 	document.getElementById("cancel-btn").addEventListener("click", resetForm);
+	document.getElementById("seed-btn").addEventListener("click", seedFromJSON);
 	document
-		.getElementById("service-form")
-		.addEventListener("submit", handleServiceSubmit);
-	document
-		.getElementById("svc-cancel-btn")
-		.addEventListener("click", resetServiceForm);
-	document
-		.getElementById("package-form")
-		.addEventListener("submit", handlePackageSubmit);
-	document
-		.getElementById("pkg-cancel-btn")
-		.addEventListener("click", resetPackageForm);
+		.getElementById("refresh-storage-btn")
+		.addEventListener("click", loadStorageFiles);
+
+	const standaloneUpload = document.getElementById("standalone-upload");
+	if (standaloneUpload) {
+		standaloneUpload.addEventListener("change", async (e) => {
+			const file = e.target.files && e.target.files[0];
+			if (!file) return;
+			try {
+				showToast("Subiendo archivo a SpiderCloudStorage...", "success");
+				await uploadFileToSpider(file);
+				showToast("Archivo subido correctamente", "success");
+				loadStorageFiles();
+			} catch (err) {
+				showToast(err.message || "Error al subir archivo", "error");
+			} finally {
+				standaloneUpload.value = "";
+			}
+		});
+	}
+
 	document.getElementById("cancel-delete").addEventListener("click", () => {
-		document.getElementById("confirm-modal").style.display = "none";
+		const dialog = document.getElementById("confirm-modal");
+		if (dialog && dialog.open) dialog.close();
 	});
 }
 
@@ -142,495 +109,228 @@ function setupImagePreview() {
 	});
 }
 
-function setupIconPreview() {
-	const iconInput = document.getElementById("svc-icon");
-	const previewDiv = document.getElementById("svc-icon-preview");
-	const previewIcon = document.getElementById("svc-icon-preview-icon");
+// ==================== SUBIDA A CLOUD STORAGE (#46) ====================
+function fileToBase64(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = reject;
+		reader.readAsDataURL(file);
+	});
+}
 
-	iconInput.addEventListener("input", (e) => {
-		const cls = e.target.value.trim();
-		if (cls) {
-			previewIcon.className = `bi ${cls}`;
-			previewDiv.style.display = "block";
-		} else {
-			previewDiv.style.display = "none";
+async function uploadFileToSpider(file) {
+	const base64 = await fileToBase64(file);
+	const res = await fetch(`${API_BASE}/storage`, {
+		method: "POST",
+		headers: getAdminHeaders(),
+		body: JSON.stringify({
+			filename: file.name,
+			mimeType: file.type,
+			base64,
+		}),
+	});
+	const data = await res.json();
+	if (!res.ok) {
+		throw new Error(data.error || "Error subiendo imagen");
+	}
+	return data;
+}
+
+function setupCloudUpload() {
+	const fileInput = document.getElementById("image-upload");
+	const statusEl = document.getElementById("upload-status");
+	if (!fileInput) return;
+
+	fileInput.addEventListener("change", async (e) => {
+		const file = e.target.files && e.target.files[0];
+		if (!file) return;
+
+		statusEl.textContent = "Subiendo a Cloud Storage #46...";
+		try {
+			const uploaded = await uploadFileToSpider(file);
+			if (uploaded.url) {
+				document.getElementById("image").value = uploaded.url;
+				document.getElementById("storage-file-id").value =
+					uploaded.fileId || "";
+				document.getElementById("preview-img").src = uploaded.url;
+				document.getElementById("image-preview").style.display = "block";
+			}
+			statusEl.textContent = "Imagen subida a Cloud Storage";
+			showToast("Imagen subida a SpiderCloudStorage", "success");
+		} catch (err) {
+			statusEl.textContent = "Error al subir";
+			showToast(err.message, "error");
 		}
 	});
 }
 
-function setupFeatures() {
-	document.getElementById("pkg-add-feature").addEventListener("click", () => {
-		addFeatureInput("");
-	});
-}
-
-function addFeatureInput(value) {
-	const container = document.getElementById("pkg-features-list");
-	const row = document.createElement("div");
-	row.className = "feature-row";
-	row.innerHTML = `
-		<input type="text" class="feature-input" value="${value}" placeholder="Ej: Diseño Gráfico (7 flyers)" />
-		<button type="button" class="btn btn-danger btn-sm feature-remove" title="Quitar">
-			<i class="bi bi-x"></i>
-		</button>
-	`;
-	row
-		.querySelector(".feature-remove")
-		.addEventListener("click", () => row.remove());
-	container.appendChild(row);
-}
-
-function getFeatures() {
-	return Array.from(document.querySelectorAll(".feature-input"))
-		.map((input) => input.value.trim())
-		.filter((v) => v.length > 0);
-}
-
-// ==================== API CALLS - PROJECTS ====================
+// ==================== CRUD PROYECTOS (SQL) ====================
 async function loadProjects() {
 	try {
-		const response = await fetch(`${API_BASE}/projects`);
-		const data = await response.json();
+		const res = await fetch(`${API_BASE}/projects`);
+		const data = await res.json();
 		projects = data.projects || [];
+		const badge = document.getElementById("db-source-badge");
+		if (badge) {
+			badge.textContent =
+				data.source === "sql"
+					? "Fuente activa: Base de datos SQL (SpiderWebArgAPI)"
+					: "Fuente activa: Respaldo local (json/proyectos.json)";
+		}
 		renderProjects();
-		updateProjectCount();
+		document.getElementById("projects-count").textContent =
+			`${projects.length} proyecto${projects.length !== 1 ? "s" : ""}`;
 	} catch (error) {
 		console.error("Error cargando proyectos:", error);
 		showToast("Error al cargar proyectos", "error");
 	}
 }
 
-async function createProject(projectData) {
+async function seedFromJSON() {
 	try {
-		const response = await fetch(`${API_BASE}/projects`, {
+		const res = await fetch(`${API_BASE}/projects`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(projectData),
+			headers: getAdminHeaders(),
+			body: JSON.stringify({ action: "seed" }),
 		});
-		if (response.ok) {
-			showToast("Proyecto creado exitosamente", "success");
-			await loadProjects();
-			resetForm();
-		} else {
-			throw new Error("Error al crear proyecto");
-		}
-	} catch (error) {
-		console.error("Error:", error);
-		showToast("Error al crear el proyecto", "error");
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.error || "Error al sincronizar");
+		showToast(data.message || "Sincronización exitosa", "success");
+		await loadProjects();
+	} catch (err) {
+		showToast(err.message, "error");
 	}
 }
 
-async function updateProject(index, projectData) {
-	try {
-		const response = await fetch(`${API_BASE}/projects/${index}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(projectData),
-		});
-		if (response.ok) {
-			showToast("Proyecto actualizado exitosamente", "success");
-			await loadProjects();
-			resetForm();
-		} else {
-			throw new Error("Error al actualizar proyecto");
-		}
-	} catch (error) {
-		console.error("Error:", error);
-		showToast("Error al actualizar el proyecto", "error");
-	}
-}
-
-async function deleteProject(index) {
-	try {
-		const response = await fetch(`${API_BASE}/projects/${index}`, {
-			method: "DELETE",
-		});
-		if (response.ok) {
-			showToast("Proyecto eliminado exitosamente", "success");
-			await loadProjects();
-		} else {
-			throw new Error("Error al eliminar proyecto");
-		}
-	} catch (error) {
-		console.error("Error:", error);
-		showToast("Error al eliminar el proyecto", "error");
-	}
-}
-
-async function toggleDestacado(index) {
-	try {
-		const response = await fetch(
-			`${API_BASE}/projects/${index}/toggle-destacado`,
-			{ method: "PATCH" },
-		);
-		if (response.ok) {
-			await loadProjects();
-			showToast("Estado actualizado", "success");
-		} else {
-			throw new Error("Error al actualizar destacado");
-		}
-	} catch (error) {
-		console.error("Error:", error);
-		showToast("Error al actualizar el estado", "error");
-	}
-}
-
-// ==================== API CALLS - SERVICES ====================
-async function loadServices() {
-	try {
-		const response = await fetch(`${API_BASE}/services`);
-		const data = await response.json();
-		services = data.services || [];
-		renderServices();
-		updateServiceCount();
-	} catch (error) {
-		console.error("Error cargando servicios:", error);
-		showToast("Error al cargar servicios", "error");
-	}
-}
-
-async function createService(data) {
-	try {
-		const response = await fetch(`${API_BASE}/services`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
-		});
-		if (response.ok) {
-			showToast("Servicio creado exitosamente", "success");
-			await loadServices();
-			resetServiceForm();
-		} else {
-			throw new Error("Error");
-		}
-	} catch (error) {
-		console.error(error);
-		showToast("Error al crear el servicio", "error");
-	}
-}
-
-async function updateService(index, data) {
-	try {
-		const response = await fetch(`${API_BASE}/services/${index}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
-		});
-		if (response.ok) {
-			showToast("Servicio actualizado exitosamente", "success");
-			await loadServices();
-			resetServiceForm();
-		} else {
-			throw new Error("Error");
-		}
-	} catch (error) {
-		console.error(error);
-		showToast("Error al actualizar el servicio", "error");
-	}
-}
-
-async function deleteService(index) {
-	try {
-		const response = await fetch(`${API_BASE}/services/${index}`, {
-			method: "DELETE",
-		});
-		if (response.ok) {
-			showToast("Servicio eliminado exitosamente", "success");
-			await loadServices();
-		} else {
-			throw new Error("Error");
-		}
-	} catch (error) {
-		console.error(error);
-		showToast("Error al eliminar el servicio", "error");
-	}
-}
-
-// ==================== API CALLS - PACKAGES ====================
-async function loadPackages() {
-	try {
-		const response = await fetch(`${API_BASE}/packages`);
-		const data = await response.json();
-		packages = data.packages || [];
-		renderPackages();
-		updatePackageCount();
-	} catch (error) {
-		console.error("Error cargando paquetes:", error);
-		showToast("Error al cargar paquetes", "error");
-	}
-}
-
-async function createPackage(data) {
-	try {
-		const response = await fetch(`${API_BASE}/packages`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
-		});
-		if (response.ok) {
-			showToast("Paquete creado exitosamente", "success");
-			await loadPackages();
-			resetPackageForm();
-		} else {
-			throw new Error("Error");
-		}
-	} catch (error) {
-		console.error(error);
-		showToast("Error al crear el paquete", "error");
-	}
-}
-
-async function updatePackage(index, data) {
-	try {
-		const response = await fetch(`${API_BASE}/packages/${index}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
-		});
-		if (response.ok) {
-			showToast("Paquete actualizado exitosamente", "success");
-			await loadPackages();
-			resetPackageForm();
-		} else {
-			throw new Error("Error");
-		}
-	} catch (error) {
-		console.error(error);
-		showToast("Error al actualizar el paquete", "error");
-	}
-}
-
-async function deletePackage(index) {
-	try {
-		const response = await fetch(`${API_BASE}/packages/${index}`, {
-			method: "DELETE",
-		});
-		if (response.ok) {
-			showToast("Paquete eliminado exitosamente", "success");
-			await loadPackages();
-		} else {
-			throw new Error("Error");
-		}
-	} catch (error) {
-		console.error(error);
-		showToast("Error al eliminar el paquete", "error");
-	}
-}
-
-// ==================== FORM HANDLING - PROJECTS ====================
-function handleSubmit(e) {
+async function handleProjectSubmit(e) {
 	e.preventDefault();
-	const projectData = {
+	const payload = {
 		name: document.getElementById("name").value.trim(),
 		url: document.getElementById("url").value.trim(),
 		description: document.getElementById("description").value.trim(),
 		image: document.getElementById("image").value.trim(),
+		storage_file_id: document.getElementById("storage-file-id").value || null,
 		alt: document.getElementById("alt").value.trim(),
 		destacado: document.getElementById("destacado").checked ? 1 : 0,
 	};
-	if (editingIndex !== null) {
-		updateProject(editingIndex, projectData);
-	} else {
-		createProject(projectData);
-	}
-}
 
-function resetForm() {
-	document.getElementById("project-form").reset();
-	document.getElementById("project-index").value = "";
-	document.getElementById("form-title").innerHTML =
-		'<i class="bi bi-plus-circle"></i> Agregar Nuevo Proyecto';
-	document.getElementById("submit-btn").innerHTML =
-		'<i class="bi bi-save"></i> Guardar Proyecto';
-	document.getElementById("cancel-btn").style.display = "none";
-	document.getElementById("image-preview").style.display = "none";
-	editingIndex = null;
+	try {
+		const url = editingId
+			? `${API_BASE}/projects?id=${editingId}`
+			: `${API_BASE}/projects`;
+		const method = editingId ? "PUT" : "POST";
+
+		const res = await fetch(url, {
+			method,
+			headers: getAdminHeaders(),
+			body: JSON.stringify(payload),
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.error || "Error guardando proyecto");
+
+		showToast(
+			editingId ? "Proyecto actualizado en SQL" : "Proyecto creado en SQL",
+			"success",
+		);
+		resetForm();
+		await loadProjects();
+	} catch (err) {
+		showToast(err.message, "error");
+	}
 }
 
 function editProject(index) {
 	const project = projects[index];
-	editingIndex = index;
+	if (!project) return;
+	editingId = project.id;
+	document.getElementById("project-id").value = project.id || "";
+	document.getElementById("storage-file-id").value =
+		project.storage_file_id || "";
 	document.getElementById("name").value = project.name || "";
 	document.getElementById("url").value = project.url || "";
 	document.getElementById("description").value = project.description || "";
 	document.getElementById("image").value = project.image || "";
 	document.getElementById("alt").value = project.alt || "";
-	document.getElementById("destacado").checked = project.destacado === 1;
+	document.getElementById("destacado").checked =
+		Number(project.destacado) === 1;
+
 	if (project.image) {
 		document.getElementById("preview-img").src = project.image;
 		document.getElementById("image-preview").style.display = "block";
+	} else {
+		document.getElementById("image-preview").style.display = "none";
 	}
+
 	document.getElementById("form-title").innerHTML =
-		'<i class="bi bi-pencil-fill"></i> Editar Proyecto';
+		'<i class="bi bi-pencil-fill" aria-hidden="true"></i> Editar Proyecto #' +
+		project.id;
 	document.getElementById("submit-btn").innerHTML =
-		'<i class="bi bi-save"></i> Actualizar Proyecto';
+		'<i class="bi bi-save" aria-hidden="true"></i> Actualizar Proyecto';
 	document.getElementById("cancel-btn").style.display = "inline-flex";
 	document
-		.querySelector("#tab-proyectos .form-section")
+		.querySelector(".form-section")
 		.scrollIntoView({ behavior: "smooth" });
 }
 
-function confirmDelete(index) {
-	showModal("¿Estás seguro de eliminar este proyecto?", () =>
-		deleteProject(index),
-	);
+function resetForm() {
+	document.getElementById("project-form").reset();
+	document.getElementById("project-id").value = "";
+	document.getElementById("storage-file-id").value = "";
+	document.getElementById("upload-status").textContent = "";
+	document.getElementById("form-title").innerHTML =
+		'<i class="bi bi-plus-circle" aria-hidden="true"></i> Agregar Nuevo Proyecto';
+	document.getElementById("submit-btn").innerHTML =
+		'<i class="bi bi-save" aria-hidden="true"></i> Guardar en SQL';
+	document.getElementById("cancel-btn").style.display = "none";
+	document.getElementById("image-preview").style.display = "none";
+	editingId = null;
 }
 
-// ==================== FORM HANDLING - SERVICES ====================
-function handleServiceSubmit(e) {
-	e.preventDefault();
-	const serviceData = {
-		icon: document.getElementById("svc-icon").value.trim(),
-		name: document.getElementById("svc-name").value.trim(),
-		description: document.getElementById("svc-description").value.trim(),
-		priceARS: rawPrice(document.getElementById("svc-priceARS").value),
-		priceUSD: rawPrice(document.getElementById("svc-priceUSD").value),
-		pricePrefix: document.getElementById("svc-prefix").value.trim(),
-	};
-	if (editingSvcIndex !== null) {
-		updateService(editingSvcIndex, serviceData);
-	} else {
-		createService(serviceData);
+async function toggleDestacado(id) {
+	if (!id) {
+		showToast("Primero sincroniza los proyectos a SQL", "error");
+		return;
+	}
+	try {
+		const res = await fetch(`${API_BASE}/projects?id=${id}`, {
+			method: "PATCH",
+			headers: getAdminHeaders(),
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.error || "Error al actualizar");
+		await loadProjects();
+		showToast("Estado destacado actualizado", "success");
+	} catch (err) {
+		showToast(err.message, "error");
 	}
 }
 
-function resetServiceForm() {
-	document.getElementById("service-form").reset();
-	document.getElementById("svc-index").value = "";
-	document.getElementById("svc-form-title").innerHTML =
-		'<i class="bi bi-plus-circle"></i> Agregar Nuevo Servicio';
-	document.getElementById("svc-submit-btn").innerHTML =
-		'<i class="bi bi-save"></i> Guardar Servicio';
-	document.getElementById("svc-cancel-btn").style.display = "none";
-	document.getElementById("svc-icon-preview").style.display = "none";
-	document.getElementById("svc-prefix").value = "Desde";
-	editingSvcIndex = null;
-}
-
-function editService(index) {
-	const svc = services[index];
-	editingSvcIndex = index;
-	document.getElementById("svc-name").value = svc.name || "";
-	document.getElementById("svc-icon").value = svc.icon || "";
-	document.getElementById("svc-description").value = svc.description || "";
-	document.getElementById("svc-priceARS").value = svc.priceARS
-		? formatPrice(svc.priceARS)
-		: "";
-	document.getElementById("svc-priceUSD").value = svc.priceUSD
-		? formatPrice(svc.priceUSD)
-		: "";
-	document.getElementById("svc-prefix").value = svc.pricePrefix || "Desde";
-	if (svc.icon) {
-		document.getElementById("svc-icon-preview-icon").className =
-			`bi ${svc.icon}`;
-		document.getElementById("svc-icon-preview").style.display = "block";
+function confirmDeleteProject(id, name) {
+	if (!id) {
+		showToast("Primero sincroniza los proyectos a SQL", "error");
+		return;
 	}
-	document.getElementById("svc-form-title").innerHTML =
-		'<i class="bi bi-pencil-fill"></i> Editar Servicio';
-	document.getElementById("svc-submit-btn").innerHTML =
-		'<i class="bi bi-save"></i> Actualizar Servicio';
-	document.getElementById("svc-cancel-btn").style.display = "inline-flex";
-	document
-		.querySelector("#tab-servicios .form-section")
-		.scrollIntoView({ behavior: "smooth" });
-}
-
-function confirmDeleteService(index) {
-	showModal("¿Estás seguro de eliminar este servicio?", () =>
-		deleteService(index),
-	);
-}
-
-// ==================== FORM HANDLING - PACKAGES ====================
-function handlePackageSubmit(e) {
-	e.preventDefault();
-	const badgeVal = parseInt(document.getElementById("pkg-badge").value, 10);
-	const pkgData = {
-		tag: document.getElementById("pkg-tag").value.trim(),
-		name: document.getElementById("pkg-name").value.trim(),
-		description: document.getElementById("pkg-description").value.trim(),
-		priceARS: rawPrice(document.getElementById("pkg-priceARS").value),
-		priceUSD: rawPrice(document.getElementById("pkg-priceUSD").value),
-		period: document.getElementById("pkg-period").value.trim(),
-		badge: badgeVal > 0 && badgeVal <= 100 ? badgeVal : 0,
-		features: getFeatures(),
-	};
-	if (editingPkgIndex !== null) {
-		updatePackage(editingPkgIndex, pkgData);
-	} else {
-		createPackage(pkgData);
-	}
-}
-
-function resetPackageForm() {
-	document.getElementById("package-form").reset();
-	document.getElementById("pkg-index").value = "";
-	document.getElementById("pkg-features-list").innerHTML = "";
-	document.getElementById("pkg-form-title").innerHTML =
-		'<i class="bi bi-plus-circle"></i> Agregar Nuevo Paquete';
-	document.getElementById("pkg-submit-btn").innerHTML =
-		'<i class="bi bi-save"></i> Guardar Paquete';
-	document.getElementById("pkg-cancel-btn").style.display = "none";
-	editingPkgIndex = null;
-}
-
-function editPackage(index) {
-	const pkg = packages[index];
-	editingPkgIndex = index;
-	document.getElementById("pkg-name").value = pkg.name || "";
-	document.getElementById("pkg-tag").value = pkg.tag || "";
-	document.getElementById("pkg-description").value = pkg.description || "";
-	document.getElementById("pkg-priceARS").value = pkg.priceARS
-		? formatPrice(pkg.priceARS)
-		: "";
-	document.getElementById("pkg-priceUSD").value = pkg.priceUSD
-		? formatPrice(pkg.priceUSD)
-		: "";
-	document.getElementById("pkg-period").value = pkg.period || "";
-	document.getElementById("pkg-badge").value = pkg.badge || 0;
-
-	document.getElementById("pkg-features-list").innerHTML = "";
-	if (pkg.features && Array.isArray(pkg.features)) {
-		pkg.features.forEach((f) => addFeatureInput(f));
-	}
-
-	document.getElementById("pkg-form-title").innerHTML =
-		'<i class="bi bi-pencil-fill"></i> Editar Paquete';
-	document.getElementById("pkg-submit-btn").innerHTML =
-		'<i class="bi bi-save"></i> Actualizar Paquete';
-	document.getElementById("pkg-cancel-btn").style.display = "inline-flex";
-	document
-		.querySelector("#tab-paquetes .form-section")
-		.scrollIntoView({ behavior: "smooth" });
-}
-
-function confirmDeletePackage(index) {
-	showModal("¿Estás seguro de eliminar este paquete?", () =>
-		deletePackage(index),
-	);
-}
-
-// ==================== SHARED MODAL ====================
-function showModal(message, onConfirm) {
-	const modal = document.getElementById("confirm-modal");
-	document.getElementById("confirm-modal-text").textContent = message;
-	modal.style.display = "flex";
-	const confirmBtn = document.getElementById("confirm-delete");
-	const newBtn = confirmBtn.cloneNode(true);
-	confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
-	newBtn.addEventListener("click", () => {
-		onConfirm();
-		modal.style.display = "none";
+	showModal(`¿Estás seguro de eliminar el proyecto "${name}"?`, async () => {
+		try {
+			const res = await fetch(`${API_BASE}/projects?id=${id}`, {
+				method: "DELETE",
+				headers: getAdminHeaders(),
+			});
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.error || "Error al eliminar");
+			showToast("Proyecto eliminado", "success");
+			await loadProjects();
+		} catch (err) {
+			showToast(err.message, "error");
+		}
 	});
 }
 
-// ==================== RENDERING - PROJECTS ====================
 function renderProjects() {
 	const tbody = document.getElementById("projects-list");
 	const emptyState = document.getElementById("empty-state");
-	const tableContainer = document.querySelector(
-		"#tab-proyectos .table-container",
-	);
+	const tableContainer = document.getElementById("projects-table-container");
 
 	if (projects.length === 0) {
 		tableContainer.style.display = "none";
@@ -641,133 +341,33 @@ function renderProjects() {
 	emptyState.style.display = "none";
 
 	tbody.innerHTML = projects
-		.map(
-			(project, index) => `
+		.map((project, index) => {
+			const isFeatured = Number(project.destacado) === 1;
+			const safeImg = project.image ? project.image.replace(/"/g, "&quot;") : "";
+			return `
 		<tr>
 			<td>
 				${
-					project.image
-						? `<img src="${project.image}" alt="${project.alt || "Imagen"}" class="project-img">`
-						: '<div style="width:60px;height:60px;background:#e5e7eb;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="bi bi-image"></i></div>'
+					safeImg
+						? `<img src="${safeImg}" alt="${(project.alt || project.name || "").replace(/"/g, "&quot;")}" class="project-img" loading="lazy">`
+						: '<div class="img-placeholder"><i class="bi bi-image" aria-hidden="true"></i></div>'
 				}
 			</td>
 			<td class="project-name">${project.name}</td>
-			<td><a href="${project.url}" target="_blank" class="project-url" title="${project.url}">${project.url}</a></td>
-			<td class="project-description" title="${project.description || ""}">${project.description || '<span class="text-muted">—</span>'}</td>
+			<td><a href="${project.url}" target="_blank" rel="noopener noreferrer" class="project-url">${project.url}</a></td>
+			<td class="project-description" title="${(project.description || "").replace(/"/g, "&quot;")}">${project.description || "—"}</td>
 			<td>
-				<span class="badge-destacado ${project.destacado === 1 ? "active" : "inactive"}" onclick="toggleDestacado(${index})" title="Click para cambiar">
-					<i class="bi bi-star${project.destacado === 1 ? "-fill" : ""}"></i> ${project.destacado === 1 ? "Destacado" : "Normal"}
-				</span>
+				<button type="button" class="badge-destacado ${isFeatured ? "active" : "inactive"}" onclick="toggleDestacado(${project.id})">
+					<i class="bi bi-star${isFeatured ? "-fill" : ""}" aria-hidden="true"></i> ${isFeatured ? "Destacado" : "Normal"}
+				</button>
 			</td>
 			<td class="actions">
-				<button class="btn btn-primary btn-sm" onclick="editProject(${index})" title="Editar"><i class="bi bi-pencil"></i></button>
-				<button class="btn btn-danger btn-sm" onclick="confirmDelete(${index})" title="Eliminar"><i class="bi bi-trash"></i></button>
-			</td>
-		</tr>
-	`,
-		)
-		.join("");
-}
-
-function updateProjectCount() {
-	document.getElementById("projects-count").textContent =
-		`${projects.length} proyecto${projects.length !== 1 ? "s" : ""}`;
-}
-
-// ==================== RENDERING - SERVICES ====================
-function renderServices() {
-	const tbody = document.getElementById("services-list");
-	const emptyState = document.getElementById("svc-empty-state");
-	const tableContainer = document.getElementById("svc-table-container");
-
-	if (services.length === 0) {
-		tableContainer.style.display = "none";
-		emptyState.style.display = "block";
-		return;
-	}
-	tableContainer.style.display = "block";
-	emptyState.style.display = "none";
-
-	tbody.innerHTML = services
-		.map(
-			(svc, index) => `
-		<tr>
-			<td><i class="bi ${svc.icon || "bi-question-circle"}" style="font-size:1.5rem;color:var(--primary-color)"></i></td>
-			<td class="project-name">${svc.name}</td>
-			<td class="project-description" title="${svc.description || ""}">${svc.description || '<span class="text-muted">—</span>'}</td>
-			<td><span class="count-badge">${svc.pricePrefix || ""} ${formatPrice(svc.priceARS || 0)}</span></td>
-			<td><span class="count-badge">USD ${formatPrice(svc.priceUSD || 0).replace("$", "")}</span></td>
-			<td class="actions">
-				<button class="btn btn-primary btn-sm" onclick="editService(${index})" title="Editar"><i class="bi bi-pencil"></i></button>
-				<button class="btn btn-danger btn-sm" onclick="confirmDeleteService(${index})" title="Eliminar"><i class="bi bi-trash"></i></button>
-			</td>
-		</tr>
-	`,
-		)
-		.join("");
-}
-
-function updateServiceCount() {
-	document.getElementById("services-count").textContent =
-		`${services.length} servicio${services.length !== 1 ? "s" : ""}`;
-}
-
-// ==================== RENDERING - PACKAGES ====================
-function applyDiscount(price, badgePercent) {
-	const discount = parseInt(badgePercent, 10);
-	if (!discount || discount <= 0 || discount > 100) return price;
-	return Math.round(price * (1 - discount / 100));
-}
-
-function renderPackages() {
-	const tbody = document.getElementById("packages-list");
-	const emptyState = document.getElementById("pkg-empty-state");
-	const tableContainer = document.getElementById("pkg-table-container");
-
-	if (packages.length === 0) {
-		tableContainer.style.display = "none";
-		emptyState.style.display = "block";
-		return;
-	}
-	tableContainer.style.display = "block";
-	emptyState.style.display = "none";
-
-	tbody.innerHTML = packages
-		.map((pkg, index) => {
-			const hasDiscount = pkg.badge && parseInt(pkg.badge, 10) > 0;
-			const discountARS = hasDiscount
-				? applyDiscount(pkg.priceARS || 0, pkg.badge)
-				: pkg.priceARS || 0;
-			const discountUSD = hasDiscount
-				? applyDiscount(pkg.priceUSD || 0, pkg.badge)
-				: pkg.priceUSD || 0;
-
-			const arsDisplay = hasDiscount
-				? `<del style="color:#999;font-size:0.85em">${formatPrice(pkg.priceARS)}</del> ${formatPrice(discountARS)}`
-				: formatPrice(pkg.priceARS || 0);
-
-			const usdDisplay = hasDiscount
-				? `<del style="color:#999;font-size:0.85em">USD ${formatPrice(pkg.priceUSD).replace("$", "")}</del> USD ${formatPrice(discountUSD).replace("$", "")}`
-				: `USD ${formatPrice(pkg.priceUSD || 0).replace("$", "")}`;
-
-			return `
-		<tr>
-			<td class="project-name">
-				${pkg.name}
-				${hasDiscount ? `<span class="badge-discount">-${pkg.badge}%</span>` : ""}
-			</td>
-			<td><span class="badge-tag">${pkg.tag || "—"}</span></td>
-			<td><span class="count-badge">${arsDisplay} ARS</span></td>
-			<td><span class="count-badge">${usdDisplay}</span></td>
-			<td>${pkg.period || "—"}</td>
-			<td>
-				<ul class="features-preview">
-					${(pkg.features || []).map((f) => `<li><i class="bi bi-check-circle-fill"></i> ${f}</li>`).join("")}
-				</ul>
-			</td>
-			<td class="actions">
-				<button class="btn btn-primary btn-sm" onclick="editPackage(${index})" title="Editar"><i class="bi bi-pencil"></i></button>
-				<button class="btn btn-danger btn-sm" onclick="confirmDeletePackage(${index})" title="Eliminar"><i class="bi bi-trash"></i></button>
+				<button type="button" class="btn btn-primary btn-sm" onclick="editProject(${index})" aria-label="Editar ${project.name}">
+					<i class="bi bi-pencil" aria-hidden="true"></i>
+				</button>
+				<button type="button" class="btn btn-danger btn-sm" onclick="confirmDeleteProject(${project.id}, '${(project.name || "").replace(/'/g, "\\'")}')" aria-label="Eliminar ${project.name}">
+					<i class="bi bi-trash" aria-hidden="true"></i>
+				</button>
 			</td>
 		</tr>
 	`;
@@ -775,17 +375,124 @@ function renderPackages() {
 		.join("");
 }
 
-function updatePackageCount() {
-	document.getElementById("packages-count").textContent =
-		`${packages.length} paquete${packages.length !== 1 ? "s" : ""}`;
+// ==================== STORAGE VIEWER ====================
+async function loadStorageFiles() {
+	const grid = document.getElementById("storage-grid");
+	if (!grid) return;
+	grid.innerHTML = '<p class="text-muted">Consultando Cloud Storage #46...</p>';
+
+	try {
+		const res = await fetch(`${API_BASE}/storage`, {
+			headers: getAdminHeaders(),
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.error || "No autorizado");
+
+		const files = data.files || [];
+		if (files.length === 0) {
+			grid.innerHTML =
+				'<p class="text-muted">No hay archivos subidos en el proyecto #46 todavía.</p>';
+			return;
+		}
+
+		grid.innerHTML = files
+			.map(
+				(f) => `
+			<div class="storage-card">
+				<img src="${f.proxyUrl}" alt="${f.original_name || f.filename || "Archivo"}" loading="lazy" />
+				<div class="storage-card-info">
+					<strong>${f.original_name || f.filename || `Archivo #${f.id}`}</strong>
+					<div class="storage-card-actions">
+						<button type="button" class="btn btn-primary btn-sm" onclick="copyStorageUrl('${f.proxyUrl}')">
+							<i class="bi bi-clipboard" aria-hidden="true"></i> Copiar URL
+						</button>
+						<button type="button" class="btn btn-danger btn-sm" onclick="deleteStorageItem(${f.id})">
+							<i class="bi bi-trash" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		`,
+			)
+			.join("");
+	} catch (err) {
+		grid.innerHTML = `<p class="text-muted">${err.message}</p>`;
+	}
 }
 
-// ==================== TOAST NOTIFICATIONS ====================
+function copyStorageUrl(url) {
+	navigator.clipboard.writeText(url);
+	showToast("URL copiada al portapapeles", "success");
+}
+
+function deleteStorageItem(fileId) {
+	showModal("¿Eliminar este archivo de SpiderCloudStorage?", async () => {
+		try {
+			const res = await fetch(`${API_BASE}/storage?id=${fileId}`, {
+				method: "DELETE",
+				headers: getAdminHeaders(),
+			});
+			if (!res.ok) throw new Error("No se pudo eliminar el archivo");
+			showToast("Archivo eliminado de Cloud Storage", "success");
+			loadStorageFiles();
+		} catch (err) {
+			showToast(err.message, "error");
+		}
+	});
+}
+
+// ==================== SPIDER IA STATUS ====================
+async function loadIAStatus() {
+	const list = document.getElementById("ia-models-list");
+	const badge = document.getElementById("ia-status-badge");
+	if (!list) return;
+
+	try {
+		const res = await fetch(`${API_BASE}/chat`, {
+			headers: getAdminHeaders(),
+		});
+		const data = await res.json();
+		if (badge) {
+			badge.textContent = data.enabled
+				? "Activo"
+				: "Previsto (CHATBOT_ENABLED=false)";
+		}
+		const models = data.models || [];
+		if (models.length === 0) {
+			list.innerHTML =
+				'<li class="text-muted">Ingresa la clave de Administrador para consultar los modelos disponibles en SpiderIA.</li>';
+			return;
+		}
+		list.innerHTML = models
+			.map(
+				(m) =>
+					`<li><strong>ID ${m.id}:</strong> ${m.display_name || m.model_name} <code>(${m.model_name})</code></li>`,
+			)
+			.join("");
+	} catch (err) {
+		list.innerHTML = `<li class="text-muted">Error consultando SpiderIA: ${err.message}</li>`;
+	}
+}
+
+// ==================== MODAL NATIVO (<dialog>) & TOAST ====================
+function showModal(message, onConfirm) {
+	const dialog = document.getElementById("confirm-modal");
+	document.getElementById("confirm-modal-text").textContent = message;
+	const confirmBtn = document.getElementById("confirm-delete");
+	const newBtn = confirmBtn.cloneNode(true);
+	confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
+	newBtn.addEventListener("click", () => {
+		onConfirm();
+		dialog.close();
+	});
+	dialog.showModal();
+}
+
 function showToast(message, type = "success") {
 	const toast = document.getElementById("toast");
 	toast.textContent = message;
 	toast.className = `toast ${type} show`;
 	setTimeout(() => {
 		toast.className = "toast";
-	}, 3000);
+	}, 3200);
 }

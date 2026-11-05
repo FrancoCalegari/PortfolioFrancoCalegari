@@ -6,103 +6,218 @@
 		<meta name="disabled-adaptations" content="watch" />
 		<meta
 			name="description"
-			content="Desarrollador de aplicaciones y servicios de marketing. Descubre mis habilidades y proyectos destacados."
-		/>
-		<link rel="stylesheet" href="./css/style.css" />
-		<link rel="stylesheet" href="./css/logo.css" />
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+			content="Explora todos los proyectos web, PWAs y automatizaciones desarrolladas por Franco Calegari."
 		/>
 		<link rel="shortcut icon" href="./img/logoweb.png" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+		/>
+		<link rel="stylesheet" href="./css/intro.css" />
+		<link rel="stylesheet" href="./css/style.css" />
 		<link rel="stylesheet" href="./css/responsive.css" />
-		<meta property="og:title" content="Franco Calegari - Inicio" />
+
+		<meta property="og:title" content="Proyectos | Franco Calegari" />
 		<meta
 			property="og:description"
-			content="Desarrollador de aplicaciones y servicios de marketing. Descubre mis habilidades y proyectos destacados."
+			content="Explora el catálogo completo de aplicaciones web y proyectos destacados de Franco Calegari."
 		/>
 		<meta
 			property="og:image"
 			content="https://github.com/FrancoCalegari/NewPortfolio/blob/main/img/portadalinks.png?raw=true"
 		/>
 		<meta name="twitter:card" content="summary_large_image" />
-
-		<meta name="theme-color" content="#ffe38f70" />
-		<meta name="msapplication-navbutton-color" content="#ffe38f70" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="#ffe38f70" />
-		<title>Franco Calegari - Proyectos</title>
+		<meta name="theme-color" content="#ffbe00" />
+		<title>Proyectos | Franco Calegari</title>
 	</head>
 	<body>
-		<div class="presentationsection">
-			<header>
-				<nav>
-					<div>
-						<a href="./index.html"><img src="./img/logoweb.png" alt="" /></a>
-					</div>
-					<ul>
-						<li><a href="./index.html">Inicio</a></li>
-						<li><a href="./servicios.html">Servicios</a></li>
-						<li><a href="./proyectos.html">Proyectos</a></li>
-						<li><a href="#contacto">Contacto</a></li>
-					</ul>
-				</nav>
-			</header>
+		<a href="#projects-page-title" class="skip-link visually-hidden"
+			>Saltar al catálogo de proyectos</a
+		>
+
+		<div class="intro" aria-hidden="true">
+			<img src="./img/logoweb.png" alt="" />
 		</div>
-		<main>
-			<section class="proyectsALL">
-				<div class="proyecto-web">
-					<h2>Proyectos</h2>
-					<div class="fix-proyectos" id="projectsContainer">
-						<!-- Aquí se cargarán los proyectos desde projects.json -->
+
+		<header class="site-header">
+			<nav class="navbar" aria-label="Principal">
+				<a href="./index.html" class="brand-link">
+					<img
+						src="./img/logoweb.png"
+						alt="Inicio - Portfolio de Franco Calegari"
+						width="56"
+						height="56"
+					/>
+					<span class="brand-name">Franco Calegari</span>
+				</a>
+
+				<button
+					type="button"
+					class="menu-toggle"
+					id="menu-toggle"
+					aria-expanded="false"
+					aria-controls="primary-menu"
+					aria-label="Abrir menú de navegación"
+				>
+					<i class="bi bi-list" aria-hidden="true"></i>
+				</button>
+
+				<ul class="nav-links" id="primary-menu" role="list">
+					<li><a href="./index.html">Inicio</a></li>
+					<li><a href="./index.html#habilidades">Habilidades</a></li>
+					<li>
+						<a href="./proyectos.html" aria-current="page">Proyectos</a>
+					</li>
+					<li><a href="#contacto">Contacto</a></li>
+					<li>
+						<button
+							type="button"
+							class="theme-toggle"
+							id="theme-toggle"
+							aria-label="Cambiar tema claro u oscuro"
+							title="Cambiar tema"
+						>
+							<i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+						</button>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="main-content">
+			<section
+				class="projects-section projects-catalog-page"
+				aria-labelledby="projects-page-title"
+			>
+				<div class="section-header-block">
+					<span class="hero-badge">
+						<i class="bi bi-collection" aria-hidden="true"></i> Portafolio
+						Completo
+					</span>
+					<h1 id="projects-page-title" tabindex="-1">Todos mis Proyectos</h1>
+					<p class="section-subtitle">
+						Aplicaciones web, PWAs, sitios corporativos y herramientas
+						interactivas
+					</p>
+
+					<div class="projects-filter-bar">
+						<label for="project-search" class="visually-hidden"
+							>Buscar proyecto por nombre o descripción</label
+						>
+						<div class="search-box">
+							<i class="bi bi-search" aria-hidden="true"></i>
+							<input
+								type="search"
+								id="project-search"
+								placeholder="Buscar proyecto..."
+								autocomplete="off"
+							/>
+						</div>
+						<div
+							class="filter-pills"
+							role="group"
+							aria-label="Filtrar proyectos"
+						>
+							<button
+								type="button"
+								class="filter-btn active"
+								data-filter="all"
+								aria-pressed="true"
+							>
+								Todos
+							</button>
+							<button
+								type="button"
+								class="filter-btn"
+								data-filter="featured"
+								aria-pressed="false"
+							>
+								<i class="bi bi-star-fill" aria-hidden="true"></i> Destacados
+							</button>
+						</div>
 					</div>
 				</div>
-			</section>
 
-			<!-- Vincular el script -->
-			<script src="./js/loadProjects.js"></script>
+				<div id="projectsContainer" class="projects-grid" aria-live="polite">
+					<!-- Cargado dinámicamente desde /api/projects -->
+				</div>
+			</section>
 		</main>
+
 		<footer id="contacto">
-			<h2>Mis redes y contacto:</h2>
+			<h2>Mis redes y contacto</h2>
+			<p class="footer-subtitle">
+				¿Tienes una idea o proyecto en mente? Conecta conmigo por cualquiera de
+				estos canales:
+			</p>
 			<div class="footerIcons">
-				<a href="https://www.instagram.com/francocalegari_dw/" target="_blank"
-					><i class="bi bi-instagram"></i>
-					<p>Instagram</p></a
-				>
 				<a
-					href="https://www.youtube.com/channel/UCGCeEQ4xoSwuNlXtHVFYwOg"
+					href="https://www.instagram.com/francocalegari_dw/"
 					target="_blank"
-					><i class="bi bi-youtube"></i>
-					<p>Youtube</p></a
+					rel="noopener noreferrer"
 				>
+					<i class="bi bi-instagram" aria-hidden="true"></i>
+					<span>Instagram</span>
+				</a>
+				<a
+					href="https://www.youtube.com/@FrancoCalegari"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<i class="bi bi-youtube" aria-hidden="true"></i>
+					<span>YouTube</span>
+				</a>
 				<a
 					href="https://www.linkedin.com/in/franco-calegari-860086292/"
 					target="_blank"
-					><i class="bi bi-linkedin"></i>
-					<p>Linkedin</p></a
+					rel="noopener noreferrer"
 				>
-				<a href="https://www.freelancer.com/u/FrancoCalegariAR" target="_blank"
-					><img
+					<i class="bi bi-linkedin" aria-hidden="true"></i>
+					<span>LinkedIn</span>
+				</a>
+				<a
+					href="https://www.freelancer.com/u/FrancoCalegariAR"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
 						class="icon"
 						src="./img/icon/freelancer_icon.png"
-						alt="freelancer"
+						alt=""
+						aria-hidden="true"
+						width="28"
+						height="28"
 					/>
-					<p>Frelancer</p></a
-				>
+					<span>Freelancer</span>
+				</a>
 				<a
 					href="https://github.com/FrancoCalegari?tab=repositories"
 					target="_blank"
-					><i class="bi bi-github"></i>
-					<p>Github</p></a
+					rel="noopener noreferrer"
 				>
-				<a href="https://wa.me/5492617735869" target="_blank"
-					><i class="bi bi-whatsapp"></i>
-					<p>WhatsApp</p></a
+					<i class="bi bi-github" aria-hidden="true"></i>
+					<span>GitHub</span>
+				</a>
+				<a
+					href="https://wa.me/5492617735869"
+					target="_blank"
+					rel="noopener noreferrer"
 				>
-				<a href="mailto:francocalegari55@gmail.com"
-					><i class="bi bi-envelope"></i>
-					<p>Mail</p></a
-				>
+					<i class="bi bi-whatsapp" aria-hidden="true"></i>
+					<span>WhatsApp</span>
+				</a>
+				<a href="mailto:francocalegari55@gmail.com">
+					<i class="bi bi-envelope" aria-hidden="true"></i>
+					<span>Email</span>
+				</a>
 			</div>
+			<p class="footer-copy">
+				© <span id="current-year">2026</span> Franco Calegari. Todos los
+				derechos reservados.
+			</p>
 		</footer>
+
+		<script src="./js/loadProjects.js"></script>
+		<script src="./js/intro.js"></script>
 	</body>
 </html>

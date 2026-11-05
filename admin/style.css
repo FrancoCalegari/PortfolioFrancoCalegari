@@ -691,3 +691,130 @@ tbody tr:hover {
 		flex-direction: column;
 	}
 }
+/* Append styles for native dialog, auth box, storage grid and IA preview */
+.sr-only {
+	position: absolute !important;
+	clip-path: inset(50%) !important;
+	overflow: hidden !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	border: 0 !important;
+	white-space: nowrap !important;
+}
+
+.header-subtitle {
+	font-size: 0.9rem;
+	color: #4b5563;
+	margin-top: 0.2rem;
+}
+
+.header-controls {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.auth-box {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: rgba(255, 255, 255, 0.85);
+	padding: 0.45rem 0.85rem;
+	border-radius: 8px;
+	border: 1px solid var(--border-color);
+}
+
+.auth-box input {
+	border: none;
+	background: transparent;
+	font-size: 0.9rem;
+	min-width: 210px;
+}
+
+.auth-box input:focus {
+	outline: none;
+}
+
+.header-actions-group {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	flex-wrap: wrap;
+}
+
+.img-placeholder {
+	width: 60px;
+	height: 60px;
+	background: #e5e7eb;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.storage-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 1.25rem;
+	margin-top: 1rem;
+}
+
+.storage-card {
+	background: rgba(255, 255, 255, 0.85);
+	border: 1px solid var(--border-color);
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.storage-card img {
+	width: 100%;
+	height: 150px;
+	object-fit: contain;
+	background: #f3f4f6;
+	padding: 0.5rem;
+}
+
+.storage-card-info {
+	padding: 0.85rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.storage-card-actions {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.ia-preview-box {
+	background: rgba(255, 255, 255, 0.75);
+	padding: 1.25rem;
+	border-radius: 12px;
+	border: 1px solid var(--border-color);
+}
+
+.ia-models-list {
+	list-style: none;
+	margin-top: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+dialog.modal-dialog {
+	margin: auto;
+	border: none;
+	border-radius: var(--border-radius);
+	padding: 0;
+	background: transparent;
+}
+
+dialog.modal-dialog::backdrop {
+	background: rgba(0, 0, 0, 0.55);
+	backdrop-filter: blur(4px);
+}

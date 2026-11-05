@@ -1,336 +1,131 @@
-const express = require("express");
-const cors = require("cors");
+const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const { URL } = require("url");
 
-const app = express();
-const PORT = 3000;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.static(__dirname)); // Servir archivos estáticos del portfolio
-
-// Ruta del archivo JSON
-const projectsFilePath = path.join(__dirname, "json", "proyectos.json");
-const servicesFilePath = path.join(__dirname, "json", "servicios.json");
-const packagesFilePath = path.join(__dirname, "json", "paquetes.json");
-
-// Helper: Leer proyectos del JSON
-const readProjects = () => {
-	try {
-		const data = fs.readFileSync(projectsFilePath, "utf8");
-		return JSON.parse(data);
-	} catch (error) {
-		console.error("Error leyendo proyectos:", error);
-		return { projects: [] };
+// Cargar variables de .env de forma nativa
+const envPath = path.join(__dirname, ".env");
+if (fs.existsSync(envPath)) {
+	const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
+	for (const line of lines) {
+		const trimmed = line.trim();
+		if (!trimmed || trimmed.startsWith("#")) continue;
+		const eqIdx = trimmed.indexOf("=");
+		if (eqIdx === -1) continue;
+		const key = trimmed.slice(0, eqIdx).trim();
+		const val = trimmed
+			.slice(eqIdx + 1)
+			.trim()
+			.replace(/^["']|["']$/g, "");
+		if (!(key in process.env)) {
+			process.env[key] = val;
+		}
 	}
+}
+
+const projectsHandler = require("./api/projects");
+const storageHandler = require("./api/storage");
+const chatHandler = require("./api/chat");
+
+const PORT = process.env.PORT || 3000;
+
+const MIME_TYPES = {
+	".html": "text/html; charset=utf-8",
+	".css": "text/css; charset=utf-8",
+	".js": "application/javascript; charset=utf-8",
+	".json": "application/json; charset=utf-8",
+	".png": "image/png",
+	".jpg": "image/jpeg",
+	".jpeg": "image/jpeg",
+	".webp": "image/webp",
+	".svg": "image/svg+xml",
+	".ico": "image/x-icon",
+	".pdf": "application/pdf",
+	".ttf": "font/ttf",
 };
 
-// Helper: Escribir proyectos al JSON
-const writeProjects = (data) => {
-	try {
-		fs.writeFileSync(projectsFilePath, JSON.stringify(data, null, 4), "utf8");
-		return true;
-	} catch (error) {
-		console.error("Error escribiendo proyectos:", error);
-		return false;
-	}
-};
-
-// Helper genérico: Leer JSON
-const readJSON = (filePath, defaultKey) => {
-	try {
-		const data = fs.readFileSync(filePath, "utf8");
-		return JSON.parse(data);
-	} catch (error) {
-		console.error(`Error leyendo ${filePath}:`, error);
-		return { [defaultKey]: [] };
-	}
-};
-
-// Helper genérico: Escribir JSON
-const writeJSON = (filePath, data) => {
-	try {
-		fs.writeFileSync(filePath, JSON.stringify(data, null, 4), "utf8");
-		return true;
-	} catch (error) {
-		console.error(`Error escribiendo ${filePath}:`, error);
-		return false;
-	}
-};
-
-// ==================== API ENDPOINTS - PROJECTS ====================
-
-// GET /api/projects - Obtener todos los proyectos
-app.get("/api/projects", (req, res) => {
-	const data = readProjects();
-	res.json(data);
-});
-
-// GET /api/projects/:index - Obtener proyecto por índice
-app.get("/api/projects/:index", (req, res) => {
-	const data = readProjects();
-	const index = parseInt(req.params.index);
-
-	if (index >= 0 && index < data.projects.length) {
-		res.json(data.projects[index]);
-	} else {
-		res.status(404).json({ error: "Proyecto no encontrado" });
-	}
-});
-
-// POST /api/projects - Crear nuevo proyecto
-app.post("/api/projects", (req, res) => {
-	const data = readProjects();
-	const newProject = req.body;
-
-	// Validación básica
-	if (!newProject.name || !newProject.url) {
-		return res
-			.status(400)
-			.json({ error: "Faltan campos requeridos (name, url)" });
-	}
-
-	// Agregar proyecto
-	data.projects.push(newProject);
-
-	if (writeProjects(data)) {
-		res.status(201).json({
-			message: "Proyecto creado exitosamente",
-			project: newProject,
-			index: data.projects.length - 1,
+function readBody(req) {
+	return new Promise((resolve) => {
+		const chunks = [];
+		req.on("data", (c) => chunks.push(c));
+		req.on("end", () => {
+			const raw = Buffer.concat(chunks).toString("utf8");
+			if (!raw) return resolve({});
+			try {
+				resolve(JSON.parse(raw));
+			} catch {
+				resolve({});
+			}
 		});
-	} else {
-		res.status(500).json({ error: "Error al guardar el proyecto" });
-	}
-});
+	});
+}
 
-// PUT /api/projects/:index - Actualizar proyecto existente
-app.put("/api/projects/:index", (req, res) => {
-	const data = readProjects();
-	const index = parseInt(req.params.index);
-	const updatedProject = req.body;
-
-	if (index >= 0 && index < data.projects.length) {
-		// Validación básica
-		if (!updatedProject.name || !updatedProject.url) {
-			return res
-				.status(400)
-				.json({ error: "Faltan campos requeridos (name, url)" });
+function decorateRes(res) {
+	res.status = (code) => {
+		res.statusCode = code;
+		return res;
+	};
+	res.json = (data) => {
+		if (!res.getHeader("Content-Type")) {
+			res.setHeader("Content-Type", "application/json; charset=utf-8");
 		}
+		res.end(JSON.stringify(data));
+		return res;
+	};
+	res.send = (buf) => {
+		res.end(buf);
+		return res;
+	};
+	return res;
+}
 
-		data.projects[index] = updatedProject;
+const server = http.createServer(async (req, res) => {
+	decorateRes(res);
+	const parsedUrl = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+	req.query = Object.fromEntries(parsedUrl.searchParams.entries());
+	const pathname = decodeURIComponent(parsedUrl.pathname);
 
-		if (writeProjects(data)) {
-			res.json({
-				message: "Proyecto actualizado exitosamente",
-				project: updatedProject,
-			});
-		} else {
-			res.status(500).json({ error: "Error al actualizar el proyecto" });
+	if (pathname.startsWith("/api/")) {
+		req.body = await readBody(req);
+		if (pathname === "/api/projects" || pathname.startsWith("/api/projects/")) {
+			return projectsHandler(req, res);
 		}
-	} else {
-		res.status(404).json({ error: "Proyecto no encontrado" });
-	}
-});
-
-// DELETE /api/projects/:index - Eliminar proyecto
-app.delete("/api/projects/:index", (req, res) => {
-	const data = readProjects();
-	const index = parseInt(req.params.index);
-
-	if (index >= 0 && index < data.projects.length) {
-		const deletedProject = data.projects.splice(index, 1)[0];
-
-		if (writeProjects(data)) {
-			res.json({
-				message: "Proyecto eliminado exitosamente",
-				project: deletedProject,
-			});
-		} else {
-			res.status(500).json({ error: "Error al eliminar el proyecto" });
+		if (pathname === "/api/storage") {
+			return storageHandler(req, res);
 		}
-	} else {
-		res.status(404).json({ error: "Proyecto no encontrado" });
-	}
-});
-
-// PATCH /api/projects/:index/toggle-destacado - Toggle destacado
-app.patch("/api/projects/:index/toggle-destacado", (req, res) => {
-	const data = readProjects();
-	const index = parseInt(req.params.index);
-
-	if (index >= 0 && index < data.projects.length) {
-		const currentValue = data.projects[index].destacado || 0;
-		data.projects[index].destacado = currentValue === 1 ? 0 : 1;
-
-		if (writeProjects(data)) {
-			res.json({
-				message: "Estado de destacado actualizado",
-				destacado: data.projects[index].destacado,
-			});
-		} else {
-			res.status(500).json({ error: "Error al actualizar el proyecto" });
+		if (pathname === "/api/chat") {
+			return chatHandler(req, res);
 		}
-	} else {
-		res.status(404).json({ error: "Proyecto no encontrado" });
-	}
-});
-
-// ==================== API ENDPOINTS - SERVICES ====================
-
-// GET /api/services
-app.get("/api/services", (req, res) => {
-	const data = readJSON(servicesFilePath, "services");
-	res.json(data);
-});
-
-// POST /api/services
-app.post("/api/services", (req, res) => {
-	const data = readJSON(servicesFilePath, "services");
-	const newService = req.body;
-
-	if (!newService.name) {
-		return res.status(400).json({ error: "Falta el campo requerido (name)" });
+		return res.status(404).json({ error: "Endpoint no encontrado" });
 	}
 
-	data.services.push(newService);
-
-	if (writeJSON(servicesFilePath, data)) {
-		res.status(201).json({
-			message: "Servicio creado exitosamente",
-			service: newService,
-			index: data.services.length - 1,
-		});
-	} else {
-		res.status(500).json({ error: "Error al guardar el servicio" });
+	// Servir archivos estáticos
+	let relPath = pathname === "/" ? "/index.html" : pathname;
+	if (relPath === "/admin" || relPath === "/admin/") {
+		relPath = "/admin/index.html";
 	}
-});
+	const safePath = path.normalize(path.join(__dirname, relPath));
+	if (!safePath.startsWith(__dirname)) {
+		return res.status(403).end("Forbidden");
+	}
 
-// PUT /api/services/:index
-app.put("/api/services/:index", (req, res) => {
-	const data = readJSON(servicesFilePath, "services");
-	const index = parseInt(req.params.index);
-	const updatedService = req.body;
-
-	if (index >= 0 && index < data.services.length) {
-		if (!updatedService.name) {
-			return res.status(400).json({ error: "Falta el campo requerido (name)" });
+	fs.stat(safePath, (err, stat) => {
+		if (err || !stat.isFile()) {
+			res.status(404).end("Not Found");
+			return;
 		}
-		data.services[index] = updatedService;
-
-		if (writeJSON(servicesFilePath, data)) {
-			res.json({
-				message: "Servicio actualizado exitosamente",
-				service: updatedService,
-			});
-		} else {
-			res.status(500).json({ error: "Error al actualizar el servicio" });
-		}
-	} else {
-		res.status(404).json({ error: "Servicio no encontrado" });
-	}
+		const ext = path.extname(safePath).toLowerCase();
+		res.setHeader("Content-Type", MIME_TYPES[ext] || "application/octet-stream");
+		fs.createReadStream(safePath).pipe(res);
+	});
 });
 
-// DELETE /api/services/:index
-app.delete("/api/services/:index", (req, res) => {
-	const data = readJSON(servicesFilePath, "services");
-	const index = parseInt(req.params.index);
+if (require.main === module) {
+	server.listen(PORT, () => {
+		console.log(`\n🚀 Servidor corriendo en http://localhost:${PORT}`);
+		console.log(`📊 CMS Admin: http://localhost:${PORT}/admin`);
+		console.log(`🌐 Portfolio: http://localhost:${PORT}/index.html\n`);
+	});
+}
 
-	if (index >= 0 && index < data.services.length) {
-		const deleted = data.services.splice(index, 1)[0];
-
-		if (writeJSON(servicesFilePath, data)) {
-			res.json({
-				message: "Servicio eliminado exitosamente",
-				service: deleted,
-			});
-		} else {
-			res.status(500).json({ error: "Error al eliminar el servicio" });
-		}
-	} else {
-		res.status(404).json({ error: "Servicio no encontrado" });
-	}
-});
-
-// ==================== API ENDPOINTS - PACKAGES ====================
-
-// GET /api/packages
-app.get("/api/packages", (req, res) => {
-	const data = readJSON(packagesFilePath, "packages");
-	res.json(data);
-});
-
-// POST /api/packages
-app.post("/api/packages", (req, res) => {
-	const data = readJSON(packagesFilePath, "packages");
-	const newPkg = req.body;
-
-	if (!newPkg.name) {
-		return res.status(400).json({ error: "Falta el campo requerido (name)" });
-	}
-
-	data.packages.push(newPkg);
-
-	if (writeJSON(packagesFilePath, data)) {
-		res.status(201).json({
-			message: "Paquete creado exitosamente",
-			package: newPkg,
-			index: data.packages.length - 1,
-		});
-	} else {
-		res.status(500).json({ error: "Error al guardar el paquete" });
-	}
-});
-
-// PUT /api/packages/:index
-app.put("/api/packages/:index", (req, res) => {
-	const data = readJSON(packagesFilePath, "packages");
-	const index = parseInt(req.params.index);
-	const updatedPkg = req.body;
-
-	if (index >= 0 && index < data.packages.length) {
-		if (!updatedPkg.name) {
-			return res.status(400).json({ error: "Falta el campo requerido (name)" });
-		}
-		data.packages[index] = updatedPkg;
-
-		if (writeJSON(packagesFilePath, data)) {
-			res.json({
-				message: "Paquete actualizado exitosamente",
-				package: updatedPkg,
-			});
-		} else {
-			res.status(500).json({ error: "Error al actualizar el paquete" });
-		}
-	} else {
-		res.status(404).json({ error: "Paquete no encontrado" });
-	}
-});
-
-// DELETE /api/packages/:index
-app.delete("/api/packages/:index", (req, res) => {
-	const data = readJSON(packagesFilePath, "packages");
-	const index = parseInt(req.params.index);
-
-	if (index >= 0 && index < data.packages.length) {
-		const deleted = data.packages.splice(index, 1)[0];
-
-		if (writeJSON(packagesFilePath, data)) {
-			res.json({ message: "Paquete eliminado exitosamente", package: deleted });
-		} else {
-			res.status(500).json({ error: "Error al eliminar el paquete" });
-		}
-	} else {
-		res.status(404).json({ error: "Paquete no encontrado" });
-	}
-});
-
-// ==================== SERVIDOR ====================
-
-app.listen(PORT, () => {
-	console.log(`\n🚀 Servidor corriendo en http://localhost:${PORT}`);
-	console.log(`📊 Admin Dashboard: http://localhost:${PORT}/admin`);
-	console.log(`🌐 Portfolio: http://localhost:${PORT}/index.html\n`);
-});
+module.exports = server;
